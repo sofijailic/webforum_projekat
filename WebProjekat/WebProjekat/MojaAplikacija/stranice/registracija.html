@@ -1,0 +1,34 @@
+﻿<div class="container-fluid">
+    <div class="loginStranica">
+        <div id="regProz" class="loginProzor">
+
+            <h2 id="reg">Registracija</h2>
+
+            <div class="form-group">
+                <input type="text" class="form-control boja"  id="usernameR" ng-model="korisnik.username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control boja" id="ime" ng-model="korisnik.ime" placeholder="Ime">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control boja" id="prezime" ng-model="korisnik.prezime" placeholder="Prezime">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control boja" id="telefon" ng-model="korisnik.telefon" placeholder="Telefon">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control boja" id="email" ng-model="korisnik.email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control boja" id="pwdR" ng-model="korisnik.password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control boja" id="ppwd" ng-model="korisnik.potvrdiPassword" placeholder="PotvrdiPassword">
+            </div>
+            <br>
+            <button type="submit" class="btn button-success boja" id="dugmeReg" ng-click="Login(korisnik)">Registracija</button>
+
+        </div>
+    </div>
+
+</div>

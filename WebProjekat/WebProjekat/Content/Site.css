@@ -1,17 +1,55 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿* {
+    color:#fff;
+}
+.navbar{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.loginStranica {
+    background: #2C3E50;
+    width:100%;
+    height:100%;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+ .loginStranica > .loginProzor {
+ 
+     width:500px;
+     min-height:500px;
+     max-height:auto;
+     border: 4px solid #BF55EC;
+     position:absolute;
+     left: 50%;
+     right: 50%;
+     transform:translateX(-50%);
+     margin-top:150px;   
+     padding:50px;
+     text-align:center;
+     border-radius:20px;
+ }
+#username {
+    background:#BF55EC;
+}
+#pwd {
+    background:#BF55EC;
+}
+#tekst {
+    color:#BE90D4;
+}
+#dugmeLog {
+    background:#BE90D4;
+
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+#regProz {
+  border: 4px solid #87D37C;
+
+}
+#reg {
+    color: #87D37C;
+}
+#dugmeReg {
+    background:#87D37C;
+}
+.boja {
+    background: #C8F7C5;
 }
