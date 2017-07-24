@@ -148,11 +148,7 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-    <Folder Include="MojaAplikacija\fabrike\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -186,23 +182,64 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AutentifikacijaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KomentariController.cs" />
+    <Compile Include="Controllers\PodforumiController.cs" />
+    <Compile Include="Controllers\PorukeController.cs" />
+    <Compile Include="Controllers\PreporukeController.cs" />
+    <Compile Include="Controllers\PretragaController.cs" />
+    <Compile Include="Controllers\TemeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\ZalbeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Komentar.cs" />
+    <Compile Include="Models\Korisnik.cs" />
+    <Compile Include="Models\Podforum.cs" />
+    <Compile Include="Models\Poruka.cs" />
+    <Compile Include="Models\Tema.cs" />
+    <Compile Include="Models\Zalba.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\komentari.txt" />
+    <Content Include="App_Data\korisnici.txt" />
+    <Content Include="App_Data\lajkDislajkKomentari.txt" />
+    <Content Include="App_Data\lajkDislajkTeme.txt" />
+    <Content Include="App_Data\podforumi.txt" />
+    <Content Include="App_Data\podkomentari.txt" />
+    <Content Include="App_Data\poruke.txt" />
+    <Content Include="App_Data\teme.txt" />
+    <Content Include="App_Data\zalbe.txt" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="MojaAplikacija\app.js" />
+    <Content Include="MojaAplikacija\fabrike\AutentifikacijaFabrika.js" />
+    <Content Include="MojaAplikacija\fabrike\KomentariFabrika.js" />
+    <Content Include="MojaAplikacija\fabrike\PodforumiFabrika.js" />
+    <Content Include="MojaAplikacija\fabrike\PorukeFabrika.js" />
+    <Content Include="MojaAplikacija\fabrike\PreporukeFabrika.js" />
+    <Content Include="MojaAplikacija\fabrike\PretragaFabrika.js" />
+    <Content Include="MojaAplikacija\fabrike\TemeFabrika.js" />
+    <Content Include="MojaAplikacija\fabrike\ZalbeFabrika.js" />
     <Content Include="MojaAplikacija\kontroleri\GlavniKontroler.js" />
     <Content Include="MojaAplikacija\kontroleri\AutentifikacijaKontroler.js" />
+    <Content Include="MojaAplikacija\kontroleri\PocetnaKontroler.js" />
+    <Content Include="MojaAplikacija\kontroleri\PodforumiKontroler.js" />
+    <Content Include="MojaAplikacija\kontroleri\PodforumKontroler.js" />
+    <Content Include="MojaAplikacija\kontroleri\PreporukeKontroler.js" />
+    <Content Include="MojaAplikacija\kontroleri\PretragaKontroler.js" />
+    <Content Include="MojaAplikacija\kontroleri\ProfilKontroler.js" />
+    <Content Include="MojaAplikacija\kontroleri\PromenaTipaKontroler.js" />
+    <Content Include="MojaAplikacija\kontroleri\TemeKontroler.js" />
+    <Content Include="MojaAplikacija\kontroleri\ZalbeKontroler.js" />
     <Content Include="MojaAplikacija\stranice\login.html" />
+    <Content Include="MojaAplikacija\stranice\registracija.html" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.min.js" />
