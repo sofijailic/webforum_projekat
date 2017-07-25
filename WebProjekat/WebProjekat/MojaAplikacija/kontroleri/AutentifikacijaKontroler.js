@@ -1,4 +1,4 @@
-﻿forum.controller('AutentifikacijaKontroler', function ($scope,AutentifikacijaFabrika) {
+﻿forum.controller('AutentifikacijaKontroler', function ($scope,AutentifikacijaFabrika,$window) {
     
     function inicijalizacija() {
         console.log('Inicijalizovan autentifikacija kontroler');
@@ -12,12 +12,19 @@
         //ovde validacije: da li je prazno,telefon,email i potvrda lozinke
 
         AutentifikacijaFabrika.RegistrujKorisnika(korisnik).then(function (odgovor) {
-            console.log(odgovor.data);
+            if (odgovor.data == true) {
+                $window.location.href = "#!/login";
+
+            }
         });
     }
 
-    $scope.login = function (korisnik) {
+    $scope.Login = function (korisnik) {
 
+        AutentifikacijaFabrika.LogovanjeKorisnika(korisnik).then(function (odgovor) {
+            console.log(odgovor.data);
+
+        })
     }
 
 });

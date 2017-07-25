@@ -46,5 +46,39 @@ namespace WebProjekat.Controllers
             return true;
            
         }
+
+        [HttpPost]
+        [ActionName("Logovanje")]
+        public Korisnik Logovanje([FromBody]Korisnik k){
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] splitter = line.Split(';');
+                if (splitter[0] == k.KorisnickoIme && splitter[1] == k.Lozinka)
+                {
+                    Korisnik kor = new Korisnik();
+                    kor.KorisnickoIme = k.KorisnickoIme;
+                    kor.Uloga = splitter[2];
+                    kor.Ime = splitter[3];
+                    kor.Prezime = splitter[4];
+                    kor.BrTelefona = splitter[5];
+                    kor.Email = splitter[6];
+                    kor.DatumRegistracije = DateTime.Parse(splitter[7]);
+                    kor.Lozinka = null;
+                    sr.Close();
+                    stream.Close();
+                    return kor;
+                }
+            }
+            sr.Close();
+            stream.Close();
+            return null;
+
+        }
     }
 }

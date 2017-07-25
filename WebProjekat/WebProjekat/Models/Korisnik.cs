@@ -30,5 +30,8 @@ namespace WebProjekat.Models
             this.Email = mail;
             this.DatumRegistracije = datum;
         }
+        public Korisnik() { }
     }
+
+            
 }

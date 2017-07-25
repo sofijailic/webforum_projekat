@@ -12,6 +12,14 @@
         });
     }
 
+    factory.LogovanjeKorisnika = function (korisnik) {
+        return $http.post('/api/Autentifikacija/Logovanje', {
+            KorisnickoIme: korisnik.username,
+            Lozinka: korisnik.password
+
+        });
+
+    }
     return factory;
 
 });
