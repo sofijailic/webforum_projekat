@@ -93,5 +93,40 @@ namespace WebProjekat.Controllers
             stream.Close();
             return listaTema;
         }
+
+        [HttpGet]
+        [ActionName("UzmiTemuPoImenu")]
+        public Tema UzmiTemuPoImenu(string podforum, string tema)
+        {
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/teme.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+            string line = "";
+
+            List<string> listaKomentara = new List<string>();
+
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] splitter = line.Split(';');
+                if (splitter[0] == podforum && splitter[1] == tema)
+                {
+                    string[] komentarSplitter = splitter[8].Split('|');
+                    foreach (string komentar in komentarSplitter)
+                    {
+                        if (komentar != "nePostoje")
+                        {
+                            listaKomentara.Add(komentar);
+                        }
+                    }
+                    sr.Close();
+                    stream.Close();
+                    return new Tema(splitter[0], splitter[1], splitter[2], splitter[3], splitter[4], DateTime.Parse(splitter[5]), Int32.Parse(splitter[6]), Int32.Parse(splitter[7]), listaKomentara);
+                }
+            }
+
+            sr.Close();
+            stream.Close();
+            return null;
+        }
     }
 }

@@ -5,16 +5,16 @@
 
 
             <div>
-                <p>Dodavanje nove teme</p>
+                <h2 class="nazivT">Dodavanje nove teme</h2>
             </div>
 
             <div>
                 <div class="form-group">
-                    <label>Naslov</label>
+                    <label class="nazivT">Naslov</label>
                     <input type="text" class="form-control bojica" ng-model="tema.naslov" placeholder="Naziv teme">
                 </div>
                 <div class="form-group">
-                    <label>Tip teme</label>
+                    <label class="nazivT">Tip teme</label>
                     <select class="form-control bojica" ng-model="tema.tip">
                         <option ng-selected value="Tekst">Tekst</option>
                         <option value="Slika">Slika</option>
@@ -22,8 +22,8 @@
                     </select>
                 </div>
                 <div class="form-group" ng-show="tema.tip == 'Tekst'">
-                    <label>Tekst teme</label>
-                    <input type="text" class="form-control bojica" ng-model="tema.sadrzaj" placeholder="Sadrzaj"></input>
+                    <label class="nazivT">Tekst teme</label>
+                    <input type="text" class="form-control bojica" ng-model="tema.sadrzaj" placeholder="Sadrzaj">
                 </div>
                 <div class="form-group" ng-show="tema.tip == 'Slika'">
                     <label>Slika</label>
@@ -36,7 +36,7 @@
 
                 <div class="button-holder">
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-default" ng-click="dodavanjeTeme(tema)">Dodaj</button>
+                        <button type="submit" class="btn btn-default duT" ng-click="dodavanjeTeme(tema)">Dodaj</button>
                     </div>
 
                 </div>

@@ -3,3 +3,7 @@ asdasd;Ognjeeeeasden;Link;ognjensofija;sdfsdf;26-Jul-17;0;0;nePostoje
 asdasd;Ognjeeeeassfdsfsdden;Slika;ognjensofija;sdfsdf;26-Jul-17;0;0;nePostoje
 asdasd;Najnovija tema;Tekst;ognjensofija;ovo je tekst;26-Jul-17;0;0;nePostoje
 asdasd;sdfsdf;Tekst;ognjensofija;dfsfsdfsgdfhtfuyt;26-Jul-17;0;0;nePostoje
+asdasd;Temabroj1;Tekst;;ovo je tema broj1;26-Jul-17;0;0;nePostoje
+asdasd;wer;Tekst;;wer1;26-Jul-17;0;0;nePostoje
+asdasd;;Tekst;ognjensofija;;26-Jul-17;0;0;nePostoje
+asdasd;asda;Tekst;ognjensofija;sadasd;26-Jul-17;0;0;nePostoje

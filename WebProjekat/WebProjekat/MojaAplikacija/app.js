@@ -29,6 +29,10 @@ forum.config(function ($routeProvider) { // konfiguracija potrebnih stvari koje 
 
         controller: 'TemeKontroler',
         templateUrl: 'MojaAplikacija/stranice/dodajNovuTemu.html'
+    }).when('/podforumi/:naziv/:naslovTeme', {
+
+        controller: 'TemeKontroler',
+        templateUrl: 'MojaAplikacija/stranice/prikazTeme.html'
     })
 
 });
