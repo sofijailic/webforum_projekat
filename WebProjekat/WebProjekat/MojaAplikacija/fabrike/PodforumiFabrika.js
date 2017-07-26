@@ -15,5 +15,9 @@
         return $http.get('/api/Podforumi/UzmiSvePodforume');
     }
 
+    factory.UzmiPodforumPoImenu = function (nazivPodforuma) {
+        return $http.get('/api/Podforumi/UzmiPodforumPoImenu?nazivPodforuma=' + nazivPodforuma);
+
+    }
     return factory;
 });

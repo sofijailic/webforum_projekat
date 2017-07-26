@@ -21,6 +21,14 @@ forum.config(function ($routeProvider) { // konfiguracija potrebnih stvari koje 
 
         controller: 'PodforumiKontroler',
         templateUrl: 'MojaAplikacija/stranice/dodajPodforum.html'
+    }).when('/podforumi/:naziv', {
+
+        controller: 'PodforumKontroler',
+        templateUrl: 'MojaAplikacija/stranice/prikazPodforuma.html'
+    }).when('/podforumi/:naziv/dodajTemu', {
+
+        controller: 'TemeKontroler',
+        templateUrl: 'MojaAplikacija/stranice/dodajNovuTemu.html'
     })
 
 });

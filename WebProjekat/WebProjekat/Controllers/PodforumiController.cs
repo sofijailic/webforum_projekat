@@ -78,5 +78,36 @@ namespace WebProjekat.Controllers
             stream.Close();
             return listaSvihPodforuma;
         }
+        [HttpGet]
+        [ActionName("UzmiPodforumPoImenu")]
+        public Podforum UzmiPodforumPoImenu(string nazivPodforuma) {
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/podforumi.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+            string line = "";
+
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] splitter = line.Split(';');
+                if (splitter[0] == nazivPodforuma)
+                {
+                    sr.Close();
+                    stream.Close();
+                    List<string> listaModeratora = new List<string>();
+
+                    string[] moderatorSplitter = splitter[5].Split('|');
+                    foreach (string moderator in moderatorSplitter)
+                    {
+                        listaModeratora.Add(moderator);
+                    }
+                    return new Podforum(splitter[0], splitter[1], splitter[2], splitter[3], splitter[4], listaModeratora);
+                }
+            }
+
+            sr.Close();
+            stream.Close();
+            return null;
+        }
     }
 }

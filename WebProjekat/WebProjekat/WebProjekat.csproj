@@ -238,9 +238,11 @@
     <Content Include="MojaAplikacija\kontroleri\PromenaTipaKontroler.js" />
     <Content Include="MojaAplikacija\kontroleri\TemeKontroler.js" />
     <Content Include="MojaAplikacija\kontroleri\ZalbeKontroler.js" />
+    <Content Include="MojaAplikacija\stranice\dodajNovuTemu.html" />
     <Content Include="MojaAplikacija\stranice\dodajPodforum.html" />
     <Content Include="MojaAplikacija\stranice\login.html" />
     <Content Include="MojaAplikacija\stranice\podforumi.html" />
+    <Content Include="MojaAplikacija\stranice\prikazPodforuma.html" />
     <Content Include="MojaAplikacija\stranice\registracija.html" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular.min.js" />

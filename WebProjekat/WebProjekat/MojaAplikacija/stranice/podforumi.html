@@ -3,9 +3,9 @@
 
 <div class="container">
     <div class="podforumiSekcija">
-        <button ng-click="OtvoriDodavanjePodforuma()">Dodaj podforum</button>
+        <button class="btn btn-default" ng-click="OtvoriDodavanjePodforuma()" ng-show="korisnik.uloga == 'Administrator' || korisnik.uloga == 'Moderator'">Dodaj podforum</button>
         <div ng-repeat="podforum in podforumi">
-            <a href="/podforumi/{{podforum.Naziv}}">
+            <a href="#!/podforumi/{{podforum.Naziv}}">
                 <div class="podforum">
                     <h2>{{podforum.Naziv}}</h2>
                     <p>{{podforum.Opis}}</p>

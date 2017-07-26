@@ -1,0 +1,46 @@
+﻿
+<div class="container-fluid">
+    <div class="loginStranica">
+        <div class="loginProzor">
+
+
+            <div>
+                <p>Dodavanje nove teme</p>
+            </div>
+
+            <div>
+                <div class="form-group">
+                    <label>Naslov</label>
+                    <input type="text" class="form-control bojica" ng-model="tema.naslov" placeholder="Naziv teme">
+                </div>
+                <div class="form-group">
+                    <label>Tip teme</label>
+                    <select class="form-control bojica" ng-model="tema.tip">
+                        <option ng-selected value="Tekst">Tekst</option>
+                        <option value="Slika">Slika</option>
+                        <option value="Link">Link</option>
+                    </select>
+                </div>
+                <div class="form-group" ng-show="tema.tip == 'Tekst'">
+                    <label>Tekst teme</label>
+                    <input type="text" class="form-control bojica" ng-model="tema.sadrzaj" placeholder="Sadrzaj"></input>
+                </div>
+                <div class="form-group" ng-show="tema.tip == 'Slika'">
+                    <label>Slika</label>
+                    <input type="file" class="form-control bojica" id="slikaTeme" file-input="files" />
+                </div>
+                <div class="form-group" ng-show="tema.tip == 'Link'">
+                    <label>Link</label>
+                    <input type="text" class="form-control bojica" ng-model="tema.sadrzaj" placeholder="Ubacite link" />
+                </div>
+
+                <div class="button-holder">
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-default" ng-click="dodavanjeTeme(tema)">Dodaj</button>
+                    </div>
+
+                </div>
+
+        </div>
+    </div>
+</div>
