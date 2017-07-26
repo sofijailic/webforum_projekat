@@ -25,18 +25,18 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li ng-show="ulogovan"><a href="#!/pocetna"><i class="ion ion-android-home"></i> Početna</a></li>
-                        <li><a href="#!/podforumi"><i class="ion ion-ios-albums"></i> Podforumi</a></li>
-                        <li><a href="#!/pretraga"><i class="ion ion-ios-search-strong"></i> Pretraga</a></li>
-                        <li ng-show="korisnik.uloga == 'Administrator'"><a href="#!/promenaTipa"><i class="ion ion-lock-combination"></i> Promena tipa</a></li>
-                        <li ng-show="ulogovan"><a href="#!/preporuke"><i class="ion ion-usb"></i> Preporuke</a></li>
+                        <li ng-show="ulogovan"><a href="#!/pocetna"> Početna</a></li>
+                        <li><a href="#!/podforumi"> Podforumi</a></li>
+                        <li><a href="#!/pretraga">  Pretraga</a></li>
+                        <li ng-show="korisnik.uloga == 'Administrator'"><a href="#!/promenaTipa"> Promena tipa</a></li>
+                        <li ng-show="ulogovan"><a href="#!/preporuke"> Preporuke</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li ng-show="!ulogovan"><a href="#!/login">Login</a></li>
                         <li ng-show="!ulogovan"><a href="#!/registracija">Registracija</a></li>
-                        <li ng-show="korisnik.uloga == 'Administrator' || korisnik.uloga == 'Moderator'"><a href="#!/zalbe"><i class="ion ion-alert-circled"></i> Žalbe</a></li>
-                        <li ng-show="ulogovan"><a href="#!/profil/{{korisnik.username}}"><i class="ion ion-person"></i> {{korisnik.imePrezime}}</a></li>
-                        <li ng-show="ulogovan"><a href ng-click="Logout()"><i class="ion ion-log-out"></i> Logout</a></li>
+                        <li ng-show="korisnik.uloga == 'Administrator' || korisnik.uloga == 'Moderator'"><a href="#!/zalbe"> Žalbe</a></li>
+                        <li ng-show="ulogovan"><a href="#!/profil/{{korisnik.username}}"> {{korisnik.imePrezime}}</a></li>
+                        <li ng-show="ulogovan"><a href ng-click="Logout()"> Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->

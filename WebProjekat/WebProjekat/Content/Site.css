@@ -1,6 +1,9 @@
 ﻿* {
     color:#fff;
 }
+body{
+    background: #2C3E50;
+}
 .navbar{
     margin: 0 !important;
     padding: 0 !important;
@@ -52,4 +55,15 @@
 }
 .boja {
     background: #C8F7C5;
+}
+.podforumiSekcija{
+    padding:30px;
+    margin-top:20px;
+    border: 2px solid pink;
+}
+
+.podforum{
+    border: 1px solid white;
+    padding: 20px;
+    margin-top:20px;
 }

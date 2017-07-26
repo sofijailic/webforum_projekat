@@ -1,0 +1,35 @@
+﻿
+        <div class="container-fluid">
+            <div class="loginStranica">
+                <div class="loginProzor">
+
+                    <h2 id="tekst"> Dodaj novi podforum</h2>
+
+                    <div class="form-group">
+                        <label>Naziv</label>
+                        <input type="text" class="form-control" ng-model="podforum.naziv" placeholder="Naziv podforuma">
+                    </div>
+                    <div class="form-group">
+                        <label>Opis</label>
+                        <input type="text" class="form-control" ng-model="podforum.opis" placeholder="Opis"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Slika</label>
+                        <input type="file" class="form-control" id="slikaPodforuma" file-input="files" placeholder="Slika">
+                    </div>
+                    <div class="form-group">
+                        <label>Spisak pravila</label>
+                        <input type="text" class="form-control" ng-model="podforum.spisakPravila" placeholder="Spisak pravila"/>
+                    </div>
+
+                    <div class="button-holder">
+                        <div class="col-md-4">
+                            <button type="submit" class="btn" ng-click="dodajPodforum(podforum)">Dodaj</button>
+                        </div>
+                        <br>
+                        
+
+                    </div>
+            </div>
+
+        </div>

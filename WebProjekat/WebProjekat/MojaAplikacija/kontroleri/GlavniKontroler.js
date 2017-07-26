@@ -1,4 +1,4 @@
-﻿forum.controller('GlavniKontroler', function ($scope) {
+﻿forum.controller('GlavniKontroler', function ($scope,$rootScope) {
     if (document.cookie !== "") {
         //console.log(document.cookie);
         var cookieInfo = document.cookie.substring(9, document.cookie.length);
@@ -16,10 +16,6 @@
         };
     } else {
         $rootScope.ulogovan = false;
-    }
-
-    $scope.checkActive = function (path) {
-        return ($location.path().substr(0, path.length) === path) ? 'active' : '';
     }
 
 
