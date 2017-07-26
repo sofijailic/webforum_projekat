@@ -13,5 +13,9 @@
 
     }
 
+    factory.uzmiTemeZaPodforum = function (nazivPodforuma) {
+        return $http.get('/api/Teme/UzmiSveTemeIzPodforuma?podforum=' + nazivPodforuma);
+    }
+
     return factory;
 })

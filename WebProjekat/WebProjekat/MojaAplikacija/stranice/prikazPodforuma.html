@@ -7,4 +7,17 @@
     </div>
 
     <button class="btn btn-default" ng-click="OtvoriStranicuZaDodavanjeTeme()">Dodaj novu temu</button>
+
+
+    <div ng-repeat="tema in temePodforuma">
+        <div class="temaIzgled">
+
+            <h2>{{tema.Naslov}}</h2>
+            <p>{{tema.Tip}}</p>
+            <p>{{tema.Autor}}</p>
+            <p>{{tema.Sadrzaj}}</p>
+        </div>
+
+    </div>
 </div>
+
