@@ -1,4 +1,4 @@
-﻿forum.controller('TemeKontroler', function ($scope, $routeParams, TemeFabrika, KomentariFabrika) {
+﻿forum.controller('TemeKontroler', function ($scope, $routeParams, TemeFabrika, KomentariFabrika, $window) {
 
     $scope.podforumKomeTemaPripada = $routeParams.naziv;
     $scope.nazivTeme = $routeParams.naslovTeme;
@@ -29,7 +29,7 @@
         TemeFabrika.dodajTemu(tema).then(function (odgovor) {
 
             console.log(odgovor.data);
-            $window.location.href = "#!/podforumi";
+            $window.location.href = "#!/podforumi/"+tema.podforumKomePripada+"/"+tema.naslov;
         });
     }
 

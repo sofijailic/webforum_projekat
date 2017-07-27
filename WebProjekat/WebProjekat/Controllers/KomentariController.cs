@@ -42,7 +42,7 @@ namespace WebProjekat.Controllers
             stream.Close();
             // Upis u teme.txt tj dodavanje novog
 
-            FileStream stream2 = new FileStream(dataFile, FileMode.Append, FileAccess.Write);
+            FileStream stream2 = new FileStream(dataFile, FileMode.Create, FileAccess.Write);
             StreamWriter sw = new StreamWriter(stream2);
 
 
