@@ -1,48 +1,61 @@
 ﻿<div class="container">
-    <div class="prikazTeme">
-
+    <div class="ukupno">
         
-        <p>Naslov teme: {{tema.Naslov}}</p>
-        <p>Podforum kome pripada tema: {{podforumKomeTemaPripada}}</p>
-        <p>Tip teme: {{tema.Tip}}</p>
-        <div class="tema-sadrzaj">
-            Sadrzaj:
-            <p ng-show="tema.Tip == 'Tekst'">{{tema.Sadrzaj}}</p>
-            <a ng-show="tema.Tip == 'Link'" href="{{tema.Sadrzaj}}" target="_blank">{{tema.Sadrzaj}}</a>
-            <img class="slika-teme" src="Content/img/teme/{{tema.Sadrzaj}}" alt="" ng-show="tema.Tip == 'Slika'">
+        <div >
+
+            <h2 class="txt">Tema:  {{tema.Naslov}}</h2>
+            <p class="txt">Podforum kome pripada tema: {{podforumKomeTemaPripada}}</p>
+            <p class="txt">Tip teme: {{tema.Tip}}</p>
+            <div class="tema-sadrzaj">
+               
+               <p class="txt"> </p> <p ng-show="tema.Tip == 'Tekst'" class="txt">Sadrzaj:{{tema.Sadrzaj}}</p>
+                <a ng-show="tema.Tip == 'Link'" href="{{tema.Sadrzaj}}" target="_blank" class="txt">Sadrzaj:{{tema.Sadrzaj}}</a>
+                <img class="slika-teme" src="Content/img/teme/{{tema.Sadrzaj}}" alt="" class="txt" ng-show="tema.Tip == 'Slika'">
+            </div>
+            <p class="txt">Autor teme: {{tema.Autor}}</p>
+            <p class="txt">Datum kreiranja teme: {{tema.DatumKreiranja}}</p>
+            <p class="txt">Lajkovi teme: {{tema.PozitivniGlasovi}}</p>
+            <p class="txt">Dislajkovi teme: {{tema.NegativniGlasovi}}</p>
         </div>
-        <p>Autor teme: {{tema.Autor}}</p>
-        <p>Datum kreiranja teme: {{tema.DatumKreiranja}}</p>
-        <p>Lajkovi teme: {{tema.PozitivniGlasovi}}</p>
-        <p>Dislajkovi teme: {{tema.NegativniGlasovi}}</p>
     </div>
-    <div>
-    <button class="btn btn-success">Sacuvaj</button>
-    <button class="btn btn-warning">Izmeni</button>
-    <button class="btn btn-danger">Obrisi</button>
-    <button class="btn btn-default btn-circle btn-lg">Lajkuj</button>
-    <button class="btn btn-default btn-circle btn-lg">Dislajkuj</button>
+</div>
+    <div class="dugmad">
+    <button class="btn btn-default dugme1">Sacuvaj</button>
+    <button class="btn btn-default dugme2">Izmeni</button>
+    <button class="btn btn-default dugme3">Obrisi</button>
+    <button class="btn btn-default dugme4" ng-click="lajkujTemu(tema)">Lajkuj</button>
+    <button class="btn btn-default dugme5" ng-click="dislajkujTemu(tema)">Dislajkuj</button>
     </div>
+ 
     <br><br>
-    <h4>Komentari </h4>
+    
 
     <input type="text" ng-model="tekstKomentara"  placeholder="Unesite komentar" class="unosKomentar"><br>
     <button class="btn btn-default dugKomentar" ng-click="DodajKomentarNaTemu(tema.Naslov,podforumKomeTemaPripada,tekstKomentara)">Dodaj novi komentar</button>
     
+<br><br><br><br><br><br><br><br><br><br>
 
+<h1 class="poravnaj">Komentari na temu: " {{tema.Naslov}}" </h1>
+<br><br><br><br>
     <div ng-repeat="komentar in komentari" class="col-md-12">
-
+        
             <div class="prikazKomentara">
-              
-                <p>Autor: {{komentar.Autor}}</p>
-                <p>Datum kreiranja: {{komentar.DatumKomentara}}</p>
-                <p>Tekst: {{komentar.Tekst}}</p>
-                <p>Lajkovi: {{komentar.PozitivniGlasovi}}</p>
-                <p>Dislajkovi: {{komentar.NegativniGlasovi}}</p>
-                <h2>Podkomentari:</h2>
-                <div ng-repeat="podkomentar in komentar.Podkomentari">
+               
+                <h2 class="poravnaj2">Komentar: </h2>
+             <div class="stil1">
+                <p class="stil">Autor: {{komentar.Autor}}</p>
+                <p class="stil">Datum kreiranja: {{komentar.DatumKomentara}}</p>
+                <p class="stil">Tekst: {{komentar.Tekst}}</p>
+                <p class="stil">Lajkovi: {{komentar.PozitivniGlasovi}}</p>
+                <p class="stil">Dislajkovi: {{komentar.NegativniGlasovi}}</p>
+            </div>
+                <input type="text" class="inputPodkomentar" ng-model="tekstPodkomentara" placeholder="Unesite podkomentar " />
+                <button class="btn  stilizujDugme" ng-click="DodajPodkomentar(komentar.Id,tekstPodkomentara,podforumKomePripada,tema.Naslov)">Dodaj podkomentar</button>
 
-                    
+                <h2 class="poravnaj3">Podkomentari:</h2>
+                <div ng-repeat="podkomentar in komentar.Podkomentari" >
+
+                  
                     <div class="stilizovanjePodkomentara">
                         <p>Autor: {{podkomentar.Autor}}</p>
                         <p>Datum kreiranja: {{podkomentar.DatumKomentara}}</p>
@@ -54,8 +67,7 @@
                     
                 </div>
 
-                <input type="text" class="inputPodkomentar" ng-model="tekstPodkomentara"/>
-                <button class="btn btn-default" ng-click="DodajPodkomentar(komentar.Id,tekstPodkomentara,podforumKomePripada,tema.Naslov)">Dodaj podkomentar</button>
+                
             </div>
         
     </div>

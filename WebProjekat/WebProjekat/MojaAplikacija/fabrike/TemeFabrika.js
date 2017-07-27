@@ -21,5 +21,20 @@
         return $http.get('/api/Teme/UzmiTemuPoImenu?podforum=' + nazivPodforuma+'&tema='+nazivTeme);
 
     }
+
+    factory.lajkujTemu = function (tema, username) {
+        return $http.post('/api/Teme/LajkujTemu', {
+            PunNazivTeme: tema.PodforumKomePripada + '-' + tema.Naslov,
+            KoVrsiAkciju: username
+        })
+    }
+
+    factory.dislajkujTemu = function (tema, username) {
+        return $http.post('/api/Teme/DislajkujTemu', {
+            PunNazivTeme: tema.PodforumKomePripada + '-' + tema.Naslov,
+            KoVrsiAkciju: username
+        })
+
+    }
     return factory;
 })

@@ -198,6 +198,7 @@
     <Compile Include="Models\Komentar.cs" />
     <Compile Include="Models\Korisnik.cs" />
     <Compile Include="Models\Podforum.cs" />
+    <Compile Include="Models\PomocneKlase.cs" />
     <Compile Include="Models\Poruka.cs" />
     <Compile Include="Models\Tema.cs" />
     <Compile Include="Models\Zalba.cs" />

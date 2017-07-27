@@ -1,3 +1,4 @@
 2804fa8a-7dff-446e-b0a8-e58c76853e50;1ad05ad3-f200-4287-bf06-685318f15e7c;ognjensofija;27-Jul-17;podkomentar3;0;0;False;False;undefined-nova
 2804fa8a-7dff-446e-b0a8-e58c76853e50;e0e92bbf-f4d4-44aa-b0f4-302984ac2aae;ognjensofija;27-Jul-17;podkomentar1;0;0;False;False;undefined-nova
 2804fa8a-7dff-446e-b0a8-e58c76853e50;6eddb980-61c9-4813-a418-31cc271e65e6;ognjensofija;27-Jul-17;podkomentar2;0;0;False;False;undefined-nova
+2804fa8a-7dff-446e-b0a8-e58c76853e50;5c00095f-abc1-45bd-a476-ba960a3885fb;ognjensofija;27-Jul-17;ewrwer;0;0;False;False;undefined-nova

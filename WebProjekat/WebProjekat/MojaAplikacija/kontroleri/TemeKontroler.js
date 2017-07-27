@@ -1,4 +1,4 @@
-﻿forum.controller('TemeKontroler', function ($scope, $routeParams, TemeFabrika, KomentariFabrika, $window) {
+﻿forum.controller('TemeKontroler', function ($scope, $routeParams, TemeFabrika, KomentariFabrika, $window, $rootScope) {
 
     $scope.podforumKomeTemaPripada = $routeParams.naziv;
     $scope.nazivTeme = $routeParams.naslovTeme;
@@ -53,5 +53,35 @@
         });
     }
 
+
+    $scope.lajkujTemu = function (tema) {
+        if (!$rootScope.ulogovan) {
+            alert('Ulogujte se da bi dali glas temi!');
+            return;
+        }
+        TemeFabrika.lajkujTemu(tema, sessionStorage.getItem("username")).then(function (odgovor) {
+            console.log(odgovor.data);
+            if (odgovor.data == false) {
+                alert('Vec ste dali pozitivan glas ovoj temi');
+            } else {
+                inicijalizacija();
+            }
+        });
+    }
+
+    $scope.dislajkujTemu = function (tema) {
+        if (!$rootScope.ulogovan) {
+            alert('Ulogujte se da bi dali glas temi!');
+            return;
+        }
+        TemeFabrika.dislajkujTemu(tema, sessionStorage.getItem("username")).then(function (odgovor) {
+            console.log(odgovor.data);
+            if (odgovor.data == false) {
+                alert('Vec ste dali negativan glas ovoj temi');
+            } else {
+                inicijalizacija();
+            }
+        });
+    }
 
 })

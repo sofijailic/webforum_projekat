@@ -128,5 +128,259 @@ namespace WebProjekat.Controllers
             stream.Close();
             return null;
         }
+
+        [HttpPost]
+        [ActionName("LajkujTemu")]
+        public bool LajkujTemu([FromBody]TemaLikeDislikeRequest temaRequest)
+        {
+            
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkTeme.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            List<string> listaSvih = new List<string>();
+
+            string[] temaRequestSplit = temaRequest.PunNazivTeme.Split('-');
+            string podforumKomePripada = temaRequestSplit[0];
+            string naslovTeme = temaRequestSplit[1];
+
+            string line = "";
+            bool changed = false;
+            while ((line = sr.ReadLine()) != null)
+            {
+                bool isDisliked = false;
+
+                string[] splitter = line.Split(';');
+                // U slucaju da je vec lajkovao tu temu vrati false
+                if (splitter[0] == temaRequest.KoVrsiAkciju && splitter[1] == temaRequest.PunNazivTeme && splitter[2] == "like")
+                {
+                    sr.Close();
+                    stream.Close();
+                    return false;
+                }
+                else if (splitter[0] == temaRequest.KoVrsiAkciju && splitter[1] == temaRequest.PunNazivTeme && splitter[2] == "dislike")
+                {
+                    isDisliked = true;
+                    changed = true;
+                    listaSvih.Add(temaRequest.KoVrsiAkciju + ";" + temaRequest.PunNazivTeme + ";like");
+
+                }
+                if (!isDisliked)
+                {
+                    listaSvih.Add(line);
+                }
+
+            }
+            sr.Close();
+            stream.Close();
+
+            if (!changed)
+            {
+                
+
+                var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkTeme.txt");
+                FileStream stream2 = new FileStream(dataFile1, FileMode.Append, FileAccess.Write);
+                StreamWriter sw = new StreamWriter(stream2);
+
+
+                sw.WriteLine(temaRequest.KoVrsiAkciju + ";" + temaRequest.PunNazivTeme + ";like");
+                sw.Close();
+                stream2.Close();
+            }
+            else
+            {
+                
+                var dataFile2 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkTeme.txt");
+                FileStream stream3 = new FileStream(dataFile2, FileMode.Create, FileAccess.Write);
+                StreamWriter sw2 = new StreamWriter(stream3);
+
+                foreach (string lajkDislajk in listaSvih)
+                {
+                    sw2.WriteLine(lajkDislajk);
+                }
+                sw2.Close();
+                stream3.Close();
+            }
+            // Nakon sto sam dodao u .txt fajl ko je lajkovao , sada nadji tu temu i povecaj joj brojlajkovanih
+            
+
+            var dataFile3 = HttpContext.Current.Server.MapPath("~/App_Data/teme.txt");
+            FileStream stream4 = new FileStream(dataFile3, FileMode.Open);
+            StreamReader sr2 = new StreamReader(stream4);
+
+            List<string> sveTeme = new List<string>();
+
+            string tema = "";
+            while ((tema = sr2.ReadLine()) != null)
+            {
+                bool nadjena = false;
+
+                string[] temaTokens = tema.Split(';');
+                if (temaTokens[0] == podforumKomePripada && temaTokens[1] == naslovTeme)
+                {
+                    // nasli smo temu kojoj treba povecati pozitivne glasove
+                    nadjena = true;
+                    int brojTrenutnoPozitivnih = Int32.Parse(temaTokens[6]);
+                    int brojTrenutnoNegativnih = Int32.Parse(temaTokens[7]);
+                    brojTrenutnoPozitivnih++;
+                    if (changed)
+                    {
+                        brojTrenutnoNegativnih--;
+                    }
+                    sveTeme.Add(temaTokens[0] + ";" + temaTokens[1] + ";" + temaTokens[2] + ";" + temaTokens[3] + ";" + temaTokens[4] + ";" + temaTokens[5] + ";" + brojTrenutnoPozitivnih.ToString() + ";" + brojTrenutnoNegativnih.ToString() + ";" + temaTokens[8]);
+
+                }
+                if (!nadjena)
+                {
+                    sveTeme.Add(tema);
+                }
+            }
+            sr2.Close();
+            stream4.Close();
+
+
+            var dataFile4 = HttpContext.Current.Server.MapPath("~/App_Data/teme.txt");
+            FileStream stream5 = new FileStream(dataFile4, FileMode.Create, FileAccess.Write);
+            StreamWriter sw3 = new StreamWriter(stream5);
+
+            foreach (string linijaTeme in sveTeme)
+            {
+                sw3.WriteLine(linijaTeme);
+            }
+            sw3.Close();
+            stream5.Close();
+
+            return true;
+
+        }
+
+        [HttpPost]
+        [ActionName("DislajkujTemu")]
+        public bool DislajkujTemu([FromBody]TemaLikeDislikeRequest temaRequest) {
+
+
+            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkTeme.txt");
+            FileStream stream1 = new FileStream(dataFile1, FileMode.Open);
+            StreamReader sr1 = new StreamReader(stream1);
+
+            List<string> listaSvih = new List<string>();
+
+            string[] temaRequestSplit = temaRequest.PunNazivTeme.Split('-');
+            string podforumKomePripada = temaRequestSplit[0];
+            string naslovTeme = temaRequestSplit[1];
+
+            string line = "";
+            bool changed = false;
+            while ((line = sr1.ReadLine()) != null)
+            {
+                bool isLiked = false;
+
+                string[] splitter = line.Split(';');
+                // U slucaju da je vec dislajkovao tu temu vrati false
+                if (splitter[0] == temaRequest.KoVrsiAkciju && splitter[1] == temaRequest.PunNazivTeme && splitter[2] == "dislike")
+                {
+                    sr1.Close();
+                    stream1.Close();
+                    return false;
+                }
+                else if (splitter[0] == temaRequest.KoVrsiAkciju && splitter[1] == temaRequest.PunNazivTeme && splitter[2] == "like")
+                {
+                    isLiked = true;
+                    changed = true;
+                    listaSvih.Add(temaRequest.KoVrsiAkciju + ";" + temaRequest.PunNazivTeme + ";dislike");
+
+                }
+                if (!isLiked)
+                {
+                    listaSvih.Add(line);
+                }
+
+            }
+            sr1.Close();
+            stream1.Close();
+
+            if (!changed)
+            {
+               
+
+                var dataFile2 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkTeme.txt");
+                FileStream stream2 = new FileStream(dataFile2, FileMode.Append, FileAccess.Write);
+                StreamWriter sw1 = new StreamWriter(stream2);
+
+                sw1.WriteLine(temaRequest.KoVrsiAkciju + ";" + temaRequest.PunNazivTeme + ";dislike");
+                sw1.Close();
+                stream2.Close();
+            }
+            else
+            {
+                
+
+                var dataFile3 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkTeme.txt");
+                FileStream stream3 = new FileStream(dataFile3, FileMode.Create, FileAccess.Write);
+                StreamWriter sw2 = new StreamWriter(stream3);
+
+
+                foreach (string lajkDislajk in listaSvih)
+                {
+                    sw2.WriteLine(lajkDislajk);
+                }
+                sw2.Close();
+                stream3.Close();
+            }
+            // Nakon sto sam dodao u .txt fajl ko je dislajkovao , sada nadji tu temu i povecaj joj brojDislajkovanih
+
+
+            
+
+            var dataFile4 = HttpContext.Current.Server.MapPath("~/App_Data/teme.txt");
+            FileStream stream4 = new FileStream(dataFile4, FileMode.Open);
+            StreamReader sr2 = new StreamReader(stream4);
+
+            List<string> sveTeme = new List<string>();
+
+            string tema = "";
+            while ((tema = sr2.ReadLine()) != null)
+            {
+                bool nadjena = false;
+
+                string[] temaTokens = tema.Split(';');
+                if (temaTokens[0] == podforumKomePripada && temaTokens[1] == naslovTeme)
+                {
+                    // nasli smo temu kojoj treba povecati negativne glasove
+                    nadjena = true;
+                    int brojTrenutnoPozitivnih = Int32.Parse(temaTokens[6]);
+                    int brojTrenutnoNegativnih = Int32.Parse(temaTokens[7]);
+                    brojTrenutnoNegativnih++;
+                    if (changed)
+                    {
+                        brojTrenutnoPozitivnih--;
+                    }
+                    sveTeme.Add(temaTokens[0] + ";" + temaTokens[1] + ";" + temaTokens[2] + ";" + temaTokens[3] + ";" + temaTokens[4] + ";" + temaTokens[5] + ";" + brojTrenutnoPozitivnih.ToString() + ";" + brojTrenutnoNegativnih.ToString() + ";" + temaTokens[8]);
+
+                }
+                if (!nadjena)
+                {
+                    sveTeme.Add(tema);
+                }
+            }
+            sr2.Close();
+            stream4.Close();
+
+
+            var dataFile5 = HttpContext.Current.Server.MapPath("~/App_Data/teme.txt");
+            FileStream stream5 = new FileStream(dataFile5, FileMode.Create, FileAccess.Write);
+            StreamWriter sw3 = new StreamWriter(stream5);
+
+
+            foreach (string linijaTeme in sveTeme)
+            {
+                sw3.WriteLine(linijaTeme);
+            }
+            sw3.Close();
+            stream5.Close();
+
+            return true;
+        }
+
     }
 }

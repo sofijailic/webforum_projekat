@@ -35,7 +35,7 @@
                         <li ng-show="!ulogovan"><a href="#!/login">Login</a></li>
                         <li ng-show="!ulogovan"><a href="#!/registracija">Registracija</a></li>
                         <li ng-show="korisnik.uloga == 'Administrator' || korisnik.uloga == 'Moderator'"><a href="#!/zalbe"> Žalbe</a></li>
-                        <li ng-show="ulogovan"><a href="#!/profil/{{korisnik.username}}"> {{korisnik.imePrezime}}</a></li>
+                        <li ng-show="ulogovan"><a href="#!/profil/{{korisnik.username}}"> {{korisnik.username}}</a></li>
                         <li ng-show="ulogovan"><a href ng-click="Logout()"> Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
