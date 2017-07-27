@@ -1,4 +1,4 @@
-﻿forum.controller('TemeKontroler', function ($scope, $routeParams, TemeFabrika) {
+﻿forum.controller('TemeKontroler', function ($scope, $routeParams, TemeFabrika, KomentariFabrika) {
 
     $scope.podforumKomeTemaPripada = $routeParams.naziv;
     $scope.nazivTeme = $routeParams.naslovTeme;
@@ -10,6 +10,13 @@
             console.log(odgovor.data);
             $scope.tema = odgovor.data;
 
+
+            KomentariFabrika.uzmiKomentareZaTemu($scope.podforumKomeTemaPripada, $scope.nazivTeme).then(function (odgovor) {
+
+                console.log(odgovor.data);
+                $scope.komentari = odgovor.data;
+
+            });
         });
     }
 
@@ -23,6 +30,18 @@
 
             console.log(odgovor.data);
             $window.location.href = "#!/podforumi";
-        })
+        });
+    }
+
+    $scope.DodajKomentarNaTemu = function (naslovTeme, podforumTeme, tekstKomentara) {
+
+        var korisnickoIme = sessionStorage.getItem("username");
+        KomentariFabrika.OstaviKomentar(naslovTeme, podforumTeme, tekstKomentara, korisnickoIme).then(function (odgovor) {
+            console.log(odgovor.data);
+            $scope.tekstKomentara = "";
+            inicijalizacija();
+
+        });
+
     }
 })
