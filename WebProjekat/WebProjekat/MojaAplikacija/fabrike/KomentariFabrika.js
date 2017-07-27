@@ -12,6 +12,15 @@
 
     }
 
+    factory.dodajPodkomentar = function (IdRoditelja, tekstPodkomentara, autor, temaKojojPripada) {
+        return $http.post('/api/Komentari/DodajPodkomentar', {
+            RoditeljskiKomentar: IdRoditelja,
+            TemaKojojPripada: temaKojojPripada,
+            Tekst: tekstPodkomentara,
+            Autor: autor
+        })
+    }
+
     factory.uzmiKomentareZaTemu = function (podforum,tema) {
         return $http.get('/api/Komentari/UzmiKomentare/?idTeme=' + podforum + '-' + tema);
     }

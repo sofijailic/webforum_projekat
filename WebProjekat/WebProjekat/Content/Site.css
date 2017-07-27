@@ -191,3 +191,18 @@ body{
     box-shadow:
         0 0 100px 4px aquamarine;  /* inner white */
 }
+
+.stilizovanjePodkomentara {
+    border: 2px solid #ffd800;
+    border-radius:50px;
+    margin:20px;
+    padding:40px;
+}
+
+.inputPodkomentar {
+    
+    border: 2px solid green;
+    color: green;
+    height:140px;
+    width: 540px;
+}

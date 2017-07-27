@@ -44,4 +44,14 @@
         });
 
     }
+
+    $scope.DodajPodkomentar = function (IdRoditelja, tekstPodkomentara, podforum, tema) {
+        var autor = sessionStorage.getItem("username");
+        var temaKojojPripada = podforum + '-' + tema;
+        KomentariFabrika.dodajPodkomentar(IdRoditelja, tekstPodkomentara, autor, temaKojojPripada).then(function (odgovor) {
+            inicijalizacija();
+        });
+    }
+
+
 })

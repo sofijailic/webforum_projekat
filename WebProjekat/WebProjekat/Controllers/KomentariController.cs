@@ -153,5 +153,70 @@ namespace WebProjekat.Controllers
             return listaKomentaraZaTemu;
 
         }
+
+        [HttpPost]
+        [ActionName("DodajPodkomentar")]
+        public Komentar DodajPodkomentar([FromBody]Komentar pk)
+        {
+            List<string> listaSvihKomentara = new List<string>();
+            int brojac = 0;
+            int indexZaIzmenu = -1;
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                // NE zaboravi: mora proci kroz sve da bi dodao u listuSvihKomentara, kako bi mogao celu listu ponovo da upisem
+                listaSvihKomentara.Add(line);
+                brojac++;
+
+                string[] splitter = line.Split(';');
+                if (splitter[0] == pk.RoditeljskiKomentar)
+                {
+                    indexZaIzmenu = brojac;
+                }
+            }
+            sr.Close();
+            stream.Close();
+            // Upis u komentari.txt tj dodavanje novog podkomentara na kraj
+
+            var dataFile2 = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream2 = new FileStream(dataFile2, FileMode.Create, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(stream2);
+
+           
+
+            pk.Id = Guid.NewGuid().ToString();
+            pk.DatumKomentara = DateTime.Now;
+            pk.Izmenjen = false;
+            pk.NegativniGlasovi = 0;
+            pk.PozitivniGlasovi = 0;
+            pk.Obrisan = false;
+
+            listaSvihKomentara[indexZaIzmenu - 1] += "|" + pk.Id;
+
+            foreach (string komentar in listaSvihKomentara)
+            {
+                sw.WriteLine(komentar);
+            }
+            sw.Close();
+            stream2.Close();
+
+            // Upis u podkomentari.txt
+
+            var dataFile3 = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+            FileStream stream3 = new FileStream(dataFile3, FileMode.Append, FileAccess.Write);
+            StreamWriter sw3 = new StreamWriter(stream3);
+
+            sw3.WriteLine(pk.RoditeljskiKomentar + ";" + pk.Id + ";" + pk.Autor + ";" + pk.DatumKomentara.ToShortDateString() + ";" + pk.Tekst + ";" + pk.PozitivniGlasovi.ToString() + ";" + pk.NegativniGlasovi.ToString() + ";" + pk.Izmenjen.ToString() + ";" + pk.Obrisan.ToString() + ";" + pk.TemaKojojPripada);
+
+            sw3.Close();
+            stream3.Close();
+            return pk;
+        }
     }
 }

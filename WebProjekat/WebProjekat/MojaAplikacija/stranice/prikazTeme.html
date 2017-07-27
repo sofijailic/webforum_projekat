@@ -39,6 +39,23 @@
                 <p>Tekst: {{komentar.Tekst}}</p>
                 <p>Lajkovi: {{komentar.PozitivniGlasovi}}</p>
                 <p>Dislajkovi: {{komentar.NegativniGlasovi}}</p>
+                <h2>Podkomentari:</h2>
+                <div ng-repeat="podkomentar in komentar.Podkomentari">
+
+                    
+                    <div class="stilizovanjePodkomentara">
+                        <p>Autor: {{podkomentar.Autor}}</p>
+                        <p>Datum kreiranja: {{podkomentar.DatumKomentara}}</p>
+                        <p>Tekst: {{podkomentar.Tekst}}</p>
+                        <p>Lajkovi: {{podkomentar.PozitivniGlasovi}}</p>
+                        <p>Dislajkovi: {{podkomentar.NegativniGlasovi}}</p>
+
+                    </div>
+                    
+                </div>
+
+                <input type="text" class="inputPodkomentar" ng-model="tekstPodkomentara"/>
+                <button class="btn btn-default" ng-click="DodajPodkomentar(komentar.Id,tekstPodkomentara,podforumKomePripada,tema.Naslov)">Dodaj podkomentar</button>
             </div>
         
     </div>
