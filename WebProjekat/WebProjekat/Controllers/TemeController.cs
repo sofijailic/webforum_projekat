@@ -382,5 +382,76 @@ namespace WebProjekat.Controllers
             return true;
         }
 
+
+        [HttpPost]
+        [ActionName("SacuvajTemu")]
+        public bool SacuvajTemu([FromBody]TemaZaCuvanje temaZaCuvanje)
+        {
+            
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            List<string> listaSvihKorisnika = new List<string>();
+            int brojac = 0;
+            int indexZaIzmenu = -1;
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                listaSvihKorisnika.Add(line);
+                brojac++;
+
+                string[] splitter = line.Split(';');
+                if (splitter[0] == temaZaCuvanje.KorisnikKojiPrati)
+                {
+                    indexZaIzmenu = brojac;
+                }
+            }
+            sr.Close();
+            stream.Close();
+
+            // splituj tu liniju koja treba da se menja tj na koju treba da se dodaje
+            string[] tokeniOdabranogKorisnika = listaSvihKorisnika[indexZaIzmenu - 1].Split(';');
+            // tokeniOdabranogKorisnika[9] tu se nalazi spisak pracenih tema
+            string[] splitterProvere = tokeniOdabranogKorisnika[9].Split('|');
+            // provera ukoliko korisnik vec prati postojeci podforum
+            foreach (string pracenaTema in splitterProvere)
+            {
+                if (pracenaTema == temaZaCuvanje.NaslovTeme)
+                {
+                    return false;
+                }
+            }
+            // otvori bulk writer
+           
+
+            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream1 = new FileStream(dataFile1, FileMode.Create, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(stream1);
+
+            // tokeniOdabranogKorisnika[9] tu se nalazi spisak pracenih tema
+            tokeniOdabranogKorisnika[9] += "|" + temaZaCuvanje.NaslovTeme;
+
+            // linijaZaUpis se inicijalizuje na pocetku da je korisnicki username
+            string linijaZaUpis = tokeniOdabranogKorisnika[0];
+            // prodji kroz sve tokene odabranog korisnika i upisi ih u liniju, da ne pisem tokeni[0]+';'+tokeni[1] ...
+            for (int i = 1; i < 11; i++)
+            {
+                linijaZaUpis += ";" + tokeniOdabranogKorisnika[i];
+            }
+
+            // ubaci tu izmenjenu liniju na to mesto u listiSvih
+            listaSvihKorisnika[indexZaIzmenu - 1] = linijaZaUpis;
+            // prepisi ceo fajl
+            foreach (string korisnickaLinija in listaSvihKorisnika)
+            {
+                sw.WriteLine(korisnickaLinija);
+            }
+            sw.Close();
+            stream1.Close();
+
+            return true;
+        }
     }
 }

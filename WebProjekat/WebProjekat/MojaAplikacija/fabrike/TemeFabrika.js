@@ -38,6 +38,12 @@
     }
 
 
-  
+    factory.sacuvajTemu = function (naslovTeme, username) {
+        return $http.post('/api/Teme/SacuvajTemu', {
+            NaslovTeme: naslovTeme,
+            KorisnikKojiPrati: username
+        })
+    }
+
     return factory;
 })

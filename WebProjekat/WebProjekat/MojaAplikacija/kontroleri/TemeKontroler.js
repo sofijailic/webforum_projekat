@@ -114,6 +114,16 @@
         });
     }
 
-   
+    $scope.sacuvajTemu = function (username) {
+
+            var naslovTeme = $scope.nazivPodforuma + '-' + $scope.nazivTeme;
+            TemeFabrika.sacuvajTemu(naslovTeme, username).then(function (odgovor) {
+                if (odgovor.data == false) {
+                    alert('Vec pratite ovu temu!');
+                }
+                else alert('Tema dodata u listu pracenih');
+            });
+       
+    }
 
 })
