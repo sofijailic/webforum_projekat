@@ -40,7 +40,7 @@ namespace WebProjekat.Controllers
             FileStream stream2 = new FileStream(dataFile, FileMode.Append, FileAccess.Write);
             StreamWriter sw = new StreamWriter(stream2);
 
-            sw.WriteLine(k.KorisnickoIme + ";" + k.Lozinka + ";" + k.Uloga + ";" + k.Ime + ";" + k.Prezime + ";" + k.BrTelefona + ";" + k.Email + ";" + k.DatumRegistracije.ToShortDateString());
+            sw.WriteLine(k.KorisnickoIme + ";" + k.Lozinka + ";" + k.Uloga + ";" + k.Ime + ";" + k.Prezime + ";" + k.BrTelefona + ";" + k.Email + ";" + k.DatumRegistracije.ToShortDateString() + ";" + "nemaSnimljenihPodforuma" + ";nemaSnimljenihTema" + ";nemaSnimljenihKomentara");
             sw.Close();
             stream2.Close();
             return true;

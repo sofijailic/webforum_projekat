@@ -1,3 +1,1 @@
-﻿ognjensofija;123;Administrator;ognjn;gat;5445645;fghfgg@.com;24-Jul-17
-sofija45;123;Korisnik;sofija;ilic;4545;ddf@com;26-Jul-17
-sofija;123;Korisnik;Sofija;Ilic;123123;sofija@sofija.com;27-Jul-17
+sofija;123;Administrator;Sofija;Ilic;431433;sofija@sof.com;28-Jul-17;nemaSnimljenihPodforuma|Nauka;nemaSnimljenihTema;nemaSnimljenihKomentara

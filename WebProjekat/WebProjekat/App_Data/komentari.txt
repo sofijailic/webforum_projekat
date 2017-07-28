@@ -1,6 +1,1 @@
-2804fa8a-7dff-446e-b0a8-e58c76853e50;asdasd-nova;ognjensofija;27-Jul-17;nemaRoditelja;komentarrrrr;0;0;False;False;nemaPodkomentara|42882416-2615-4344-8052-907f8234df3f|ca09f74c-8460-4841-b85c-312a9c95c255|1ad05ad3-f200-4287-bf06-685318f15e7c|e0e92bbf-f4d4-44aa-b0f4-302984ac2aae|6eddb980-61c9-4813-a418-31cc271e65e6|5c00095f-abc1-45bd-a476-ba960a3885fb
-39574029-a0c8-4c7b-b563-dc7b22233df3;najnoviji-jos jedna;ognjensofija;27-Jul-17;nemaRoditelja;desi bre;0;0;False;False;nemaPodkomentara
-5742460c-21b7-41ec-8601-d63b180aa2ba;najnoviji-jos jedna;ognjensofija;27-Jul-17;nemaRoditelja;aj jos jedan;0;0;False;False;nemaPodkomentara
-af3eb9ad-9f24-448a-b7c4-7ec036337be6;asdasd-nova;ognjensofija;27-Jul-17;nemaRoditelja;novi komentar;0;0;False;False;nemaPodkomentara
-99e6401b-faa6-4c87-8cbf-b4871adc68a4;asdasd-nova;ognjensofija;28-Jul-17;nemaRoditelja;Komentar3;0;0;False;False;nemaPodkomentara
-194afb64-d17f-4c65-b002-88d395aae588;asdasd-nova;ognjensofija;28-Jul-17;nemaRoditelja;komentar4;0;0;False;False;nemaPodkomentara
+5e2a153a-c4d3-4ac2-8dc1-326f31fe0932;Nauka-Neutroni i elektroni;sofija;28-Jul-17;nemaRoditelja;veoma zanimljiv clanak;1;0;False;False;nemaPodkomentara|547e97e1-0fa9-45ba-99e9-7c23703f071a

@@ -109,5 +109,75 @@ namespace WebProjekat.Controllers
             stream.Close();
             return null;
         }
+
+        [HttpPost]
+        [ActionName("SacuvajPodforum")]
+        public bool SacuvajPodforum([FromBody]PodforumZaCuvanje pfZaCuvanje)
+        {
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            List<string> listaSvihKorisnika = new List<string>();
+            int brojac = 0;
+            int indexZaIzmenu = -1;
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                listaSvihKorisnika.Add(line);
+                brojac++;
+
+                string[] splitter = line.Split(';');
+                if (splitter[0] == pfZaCuvanje.KorisnikKojiCuva)
+                {
+                    indexZaIzmenu = brojac;
+                }
+            }
+            sr.Close();
+            stream.Close();
+
+            // splituj tu liniju koja treba da se menja tj na koju treba da se dodaje
+            string[] tokeniOdabranogKorisnika = listaSvihKorisnika[indexZaIzmenu - 1].Split(';');
+            // tokeniOdabranogKorisnika[8] tu se nalazi spisak pracenih podforuma
+            string[] splitterProvere = tokeniOdabranogKorisnika[8].Split('|');
+            // provera ukoliko korisnik vec prati postojeci podforum
+            foreach (string praceniPodforum in splitterProvere)
+            {
+                if (praceniPodforum == pfZaCuvanje.NazivPodforuma)
+                {
+                    return false;
+                }
+            }
+            // otvori bulk writer
+           
+            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream1 = new FileStream(dataFile1, FileMode.Create, FileAccess.Write);
+            StreamWriter sw1 = new StreamWriter(stream1);
+
+
+            // tokeniOdabranogKorisnika[8] tu se nalazi spisak pracenih podforuma
+            tokeniOdabranogKorisnika[8] += "|" + pfZaCuvanje.NazivPodforuma;
+
+            // linijaZaUpis se inicijalizuje na pocetku da je korisnicki username
+            string linijaZaUpis = tokeniOdabranogKorisnika[0];
+            // prodji kroz sve tokene odabranog korisnika i upisi ih u liniju, da ne pisem tokeni[0]+';'+tokeni[1] ...
+            for (int i = 1; i < 11; i++)
+            {
+                linijaZaUpis += ";" + tokeniOdabranogKorisnika[i];
+            }
+
+            // ubaci tu izmenjenu liniju na to mesto u listiSvih
+            listaSvihKorisnika[indexZaIzmenu - 1] = linijaZaUpis;
+            // prepisi ceo fajl
+            foreach (string korisnickaLinija in listaSvihKorisnika)
+            {
+                sw1.WriteLine(korisnickaLinija);
+            }
+            sw1.Close();
+            stream1.Close();
+
+            return true;
+        }
     }
 }

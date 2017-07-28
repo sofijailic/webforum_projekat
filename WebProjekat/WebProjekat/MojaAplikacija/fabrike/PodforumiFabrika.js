@@ -19,5 +19,12 @@
         return $http.get('/api/Podforumi/UzmiPodforumPoImenu?nazivPodforuma=' + nazivPodforuma);
 
     }
+
+    factory.sacuvajPodforum = function (nazivPodforuma, username) {
+        return $http.post('/api/Podforumi/SacuvajPodforum', {
+            NazivPodforuma: nazivPodforuma,
+            KorisnikKojiCuva: username
+        });
+    }
     return factory;
 });

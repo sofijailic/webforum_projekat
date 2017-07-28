@@ -22,7 +22,7 @@
 
     inicijalizacija();
 
-
+    //dodavanje teme ,komentara,podkomentara
     $scope.dodavanjeTeme = function (tema) {
         tema.podforumKomePripada = $scope.podforumKomeTemaPripada;
         tema.autor = sessionStorage.getItem("username");
@@ -53,6 +53,7 @@
         });
     }
 
+    //lajkovanje i dislajkovanje teme
 
     $scope.lajkujTemu = function (tema) {
         if (!$rootScope.ulogovan) {
@@ -83,5 +84,36 @@
             }
         });
     }
+
+    //lajkovanje i dislajkovanje komentara
+    $scope.lajkujKomentar = function (komentar) {
+        if (!$rootScope.ulogovan) {
+            alert('Ulogujte se da bi ste dali glas komentaru!');
+            return;
+        }
+        KomentariFabrika.lajkujKomentar(komentar, sessionStorage.getItem("username")).then(function (odgovor) {
+            console.log(odgovor.data);
+            if (odgovor.data == false) {
+                alert('Vec ste dali pozitivan glas ovom komentaru');
+            }
+            else inicijalizacija();
+        });
+    }
+
+    $scope.dislajkujKomentar = function (komentar) {
+        if (!$rootScope.ulogovan) {
+            alert('Ulogujte se da bi ste dali glas komentaru!');
+            return;
+        }
+        KomentariFabrika.dislajkujKomentar(komentar, sessionStorage.getItem("username")).then(function (odgovor) {
+            console.log(odgovor.data);
+            if (odgovor.data == false) {
+                alert('Vec ste dali negativan glas ovom komentaru');
+            }
+            else inicijalizacija();
+        });
+    }
+
+   
 
 })

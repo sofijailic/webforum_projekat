@@ -20,4 +20,13 @@
     $scope.OtvoriStranicuZaDodavanjeTeme = function () {
         $window.location.href = "#!/podforumi/"+$scope.nazivPodforuma+'/dodajTemu';
     }
+
+    $scope.sacuvajPodforum = function (nazivPodforuma, username) {
+        PodforumiFabrika.sacuvajPodforum(nazivPodforuma, username).then(function (odgovor) {
+            if (odgovor.data == false) {
+                alert('Vec pratite ovaj podforum!');
+            }
+            else alert('Podforum dodat u listu pracenih');
+        });
+    }
 })

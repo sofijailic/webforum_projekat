@@ -20,18 +20,20 @@
     </div>
 </div>
     <div class="dugmad">
-    <button class="btn btn-default dugme1">Sacuvaj</button>
+    <button class="btn btn-default dugme1"  ng-show="ulogovan" ng-click="sacuvajKomentar(komentar.Id,korisnik.username)">Sacuvaj</button>
     <button class="btn btn-default dugme2">Izmeni</button>
     <button class="btn btn-default dugme3">Obrisi</button>
     <button class="btn btn-default dugme4" ng-click="lajkujTemu(tema)">Lajkuj</button>
     <button class="btn btn-default dugme5" ng-click="dislajkujTemu(tema)">Dislajkuj</button>
+
+        
     </div>
  
     <br><br>
     
-
-    <input type="text" ng-model="tekstKomentara"  placeholder="Unesite komentar" class="unosKomentar"><br>
-    <button class="btn btn-default dugKomentar" ng-click="DodajKomentarNaTemu(tema.Naslov,podforumKomeTemaPripada,tekstKomentara)">Dodaj novi komentar</button>
+<input type="text" ng-model="tekstKomentara" placeholder="Unesite komentar" class="unosKomentar"><br>
+<button class="btn btn-default dugKomentar" ng-click="DodajKomentarNaTemu(tema.Naslov,podforumKomeTemaPripada,tekstKomentara)">Dodaj novi komentar</button>
+    
     
 <br><br><br><br><br><br><br><br><br><br>
 
@@ -48,6 +50,10 @@
                 <p class="stil">Tekst: {{komentar.Tekst}}</p>
                 <p class="stil">Lajkovi: {{komentar.PozitivniGlasovi}}</p>
                 <p class="stil">Dislajkovi: {{komentar.NegativniGlasovi}}</p>
+
+                 <button class="dugmadpp" ng-click="lajkujKomentar(komentar)">Lajkuj</button>
+                 <button class="dugmadpp" ng-click="dislajkujKomentar(komentar)"> Dislajkuj</button>
+
             </div>
                 <input type="text" class="inputPodkomentar" ng-model="tekstPodkomentara" placeholder="Unesite podkomentar " />
                 <button class="btn  stilizujDugme" ng-click="DodajPodkomentar(komentar.Id,tekstPodkomentara,podforumKomePripada,tema.Naslov)">Dodaj podkomentar</button>
@@ -62,7 +68,8 @@
                         <p>Tekst: {{podkomentar.Tekst}}</p>
                         <p>Lajkovi: {{podkomentar.PozitivniGlasovi}}</p>
                         <p>Dislajkovi: {{podkomentar.NegativniGlasovi}}</p>
-
+                        <button class="dugmadpp" ng-click="lajkujKomentar(podkomentar)">Lajkuj</button>
+                        <button class="dugmadpp" ng-click="dislajkujKomentar(podkomentar)">Dislajkuj</button>
                     </div>
                     
                 </div>

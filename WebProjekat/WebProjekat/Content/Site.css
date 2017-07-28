@@ -176,7 +176,7 @@ body{
     background:#C8F7C5;
     color: #000000;
     font-weight: bolder;
-    margin-left:1400px;
+    margin-left:400px;
     border-radius:20px;
      
 }
@@ -186,7 +186,7 @@ body{
     background:#a7f2c0;
     color:black;
     border: #8efbc6 solid 2px;
-     margin-left:1400px;
+     margin-left:400px;
      margin-top:10px;
       box-shadow:
         0 0 100px 25px aquamarine;  /* inner white */
@@ -200,7 +200,7 @@ body{
     box-shadow:
         0 0 100px 4px aquamarine;  /* inner white */
 
-     width:750px;
+width:750px;
      
 }
 
@@ -209,7 +209,7 @@ body{
     border-radius:50px;
     margin:20px;
     padding:40px;
-    height:200px;
+    height:250px;
     width:370px;
 }
 
@@ -298,4 +298,17 @@ body{
 .poravnaj3 {
     margin-left:20px;
     color:#fde92e;
+}
+
+.dugmadpp {
+
+    color:black;
+}
+
+
+.dugmiciPodforuma {
+
+    color: black;
+    background:#C8F7C5;
+
 }

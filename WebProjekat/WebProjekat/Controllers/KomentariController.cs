@@ -218,5 +218,351 @@ namespace WebProjekat.Controllers
             stream3.Close();
             return pk;
         }
+
+
+        [HttpPost]
+        [ActionName("LajkujKomentar")]
+        public bool LajkujKomentar([FromBody]KomentarLikeDislikeRequest komentarRequest)
+        {
+            
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkKomentari.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr1 = new StreamReader(stream);
+
+
+            List<string> listaSvih = new List<string>();
+            string line = "";
+            bool changed = false;
+            while ((line = sr1.ReadLine()) != null)
+            {
+                bool isDisliked = false;
+
+                string[] splitter = line.Split(';');
+                // U slucaju da je vec lajkovao taj komentar vrati false
+                if (splitter[0] == komentarRequest.KoVrsiAkciju && splitter[1] == komentarRequest.IdKomentara && splitter[2] == "like")
+                {
+                    sr1.Close();
+                    stream.Close();
+                    return false;
+                }
+                else if (splitter[0] == komentarRequest.KoVrsiAkciju && splitter[1] == komentarRequest.IdKomentara && splitter[2] == "dislike")
+                {
+                    isDisliked = true;
+                    changed = true;
+                    listaSvih.Add(komentarRequest.KoVrsiAkciju + ";" + komentarRequest.IdKomentara + ";like");
+
+                }
+                if (!isDisliked)
+                {
+                    listaSvih.Add(line);
+                }
+
+            }
+            sr1.Close();
+            stream.Close();
+
+            if (!changed)
+            {
+               
+
+                var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkKomentari.txt");
+                FileStream stream1 = new FileStream(dataFile1, FileMode.Append, FileAccess.Write);
+                StreamWriter sw1 = new StreamWriter(stream1);
+
+                sw1.WriteLine(komentarRequest.KoVrsiAkciju + ";" + komentarRequest.IdKomentara + ";like");
+                sw1.Close();
+                stream1.Close();
+            }
+            else
+            {
+               
+
+                var dataFile2 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkKomentari.txt");
+                FileStream stream2 = new FileStream(dataFile2, FileMode.Create, FileAccess.Write);
+                StreamWriter sw2 = new StreamWriter(stream2);
+
+                foreach (string lajkDislajk in listaSvih)
+                {
+                    sw2.WriteLine(lajkDislajk);
+                }
+                sw2.Close();
+                stream2.Close();
+            }
+            // Nakon sto sam dodao u .txt fajl ko je lajkovao , sada nadji taj komentar i povecaj mu brojlajkovanih
+         
+
+            var dataFile3 = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream3 = new FileStream(dataFile3, FileMode.Open);
+            StreamReader sr2 = new StreamReader(stream3);
+
+            List<string> sviKomentari = new List<string>();
+
+            string komentar = "";
+            while ((komentar = sr2.ReadLine()) != null)
+            {
+                bool nadjena = false;
+
+                string[] komentarTokens = komentar.Split(';');
+                if (komentarTokens[0] == komentarRequest.IdKomentara)
+                {
+                    // nasli smo komentar kome treba povecati pozitivne glasove
+                    nadjena = true;
+                    int brojTrenutnoPozitivnih = Int32.Parse(komentarTokens[6]);
+                    int brojTrenutnoNegativnih = Int32.Parse(komentarTokens[7]);
+                    brojTrenutnoPozitivnih++;
+                    if (changed)
+                    {
+                        brojTrenutnoNegativnih--;
+                    }
+                    sviKomentari.Add(komentarTokens[0] + ";" + komentarTokens[1] + ";" + komentarTokens[2] + ";" + komentarTokens[3] + ";" + komentarTokens[4] + ";" + komentarTokens[5] + ";" + brojTrenutnoPozitivnih.ToString() + ";" + brojTrenutnoNegativnih.ToString() + ";" + komentarTokens[8] + ";" + komentarTokens[9] + ";" + komentarTokens[10]);
+
+                }
+                if (!nadjena)
+                {
+                    sviKomentari.Add(komentar);
+                }
+            }
+            sr2.Close();
+            stream3.Close();
+
+            var dataFile4 = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream4 = new FileStream(dataFile4, FileMode.Create, FileAccess.Write);
+            StreamWriter sw3 = new StreamWriter(stream4);
+
+           
+
+
+            foreach (string linijaKomentara in sviKomentari)
+            {
+                sw3.WriteLine(linijaKomentara);
+            }
+            sw3.Close();
+            stream4.Close();
+
+            // Sada sve ovo isto za podkomentare
+            // Nakon sto sam dodao u .txt fajl ko je lajkovao , sada nadji taj PODKOMENTAR i povecaj mu brojlajkovanih
+
+            var dataFile5 = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+            FileStream stream5 = new FileStream(dataFile5, FileMode.Open);
+            StreamReader sr3 = new StreamReader(stream5);
+
+            List<string> sviPodkomentari = new List<string>();
+
+            string podkomentar = "";
+            while ((podkomentar = sr3.ReadLine()) != null)
+            {
+                bool nadjena = false;
+
+                string[] podkomentarTokens = podkomentar.Split(';');
+                if (podkomentarTokens[1] == komentarRequest.IdKomentara)
+                {
+                    // nasli smo komentar kome treba povecati pozitivne glasove
+                    nadjena = true;
+                    int brojTrenutnoPozitivnih = Int32.Parse(podkomentarTokens[5]);
+                    int brojTrenutnoNegativnih = Int32.Parse(podkomentarTokens[6]);
+                    brojTrenutnoPozitivnih++;
+                    if (changed)
+                    {
+                        brojTrenutnoNegativnih--;
+                    }
+                    sviPodkomentari.Add(podkomentarTokens[0] + ";" + podkomentarTokens[1] + ";" + podkomentarTokens[2] + ";" + podkomentarTokens[3] + ";" + podkomentarTokens[4] + ";" + brojTrenutnoPozitivnih.ToString() + ";" + brojTrenutnoNegativnih.ToString() + ";" + podkomentarTokens[7] + ";" + podkomentarTokens[8] + ";" + podkomentarTokens[9]);
+
+                }
+                if (!nadjena)
+                {
+                    sviPodkomentari.Add(podkomentar);
+                }
+            }
+            sr3.Close();
+            stream5.Close();
+
+            var dataFile6 = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+            FileStream stream6 = new FileStream(dataFile6, FileMode.Create, FileAccess.Write);
+            StreamWriter sw4 = new StreamWriter(stream6);
+
+            foreach (string linijaKomentara in sviPodkomentari)
+            {
+                sw4.WriteLine(linijaKomentara);
+            }
+           sw4.Close();
+           stream6.Close();
+
+            return true;
+        }
+
+
+        [HttpPost]
+        [ActionName("DislajkujKomentar")]
+        public bool DislajkujKomentar([FromBody]KomentarLikeDislikeRequest komentarRequest)
+        {
+         
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkKomentari.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr1 = new StreamReader(stream);
+
+            List<string> listaSvih = new List<string>();
+            string line = "";
+            bool changed = false;
+            while ((line = sr1.ReadLine()) != null)
+            {
+                bool isDisliked = false;
+
+                string[] splitter = line.Split(';');
+                // U slucaju da je vec dislajkovao taj komentar vrati false
+                if (splitter[0] == komentarRequest.KoVrsiAkciju && splitter[1] == komentarRequest.IdKomentara && splitter[2] == "dislike")
+                {
+                    sr1.Close();
+                    stream.Close();
+                    return false;
+                }
+                else if (splitter[0] == komentarRequest.KoVrsiAkciju && splitter[1] == komentarRequest.IdKomentara && splitter[2] == "like")
+                {
+                    isDisliked = true;
+                    changed = true;
+                    listaSvih.Add(komentarRequest.KoVrsiAkciju + ";" + komentarRequest.IdKomentara + ";dislike");
+
+                }
+                if (!isDisliked)
+                {
+                    listaSvih.Add(line);
+                }
+
+            }
+            sr1.Close();
+            stream.Close();
+
+            if (!changed)
+            {
+               
+
+                var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkKomentari.txt");
+                FileStream stream1 = new FileStream(dataFile1, FileMode.Append, FileAccess.Write);
+                StreamWriter sw1 = new StreamWriter(stream1);
+
+                sw1.WriteLine(komentarRequest.KoVrsiAkciju + ";" + komentarRequest.IdKomentara + ";dislike");
+                sw1.Close();
+                stream1.Close();
+            }
+            else
+            {
+               
+
+                var dataFile2 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkKomentari.txt");
+                FileStream stream2 = new FileStream(dataFile2, FileMode.Create, FileAccess.Write);
+                StreamWriter sw2 = new StreamWriter(stream2);
+
+                foreach (string lajkDislajk in listaSvih)
+                {
+                    sw2.WriteLine(lajkDislajk);
+                }
+                sw2.Close();
+                stream2.Close();
+            }
+            // Nakon sto sam dodao u .txt fajl ko je dislajkovao , sada nadji taj komentar i povecaj mu brojlajkovanih
+
+
+           
+
+            var dataFile3 = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream3 = new FileStream(dataFile3, FileMode.Open);
+            StreamReader sr2 = new StreamReader(stream3);
+
+            List<string> sviKomentari = new List<string>();
+
+            string komentar = "";
+            while ((komentar = sr2.ReadLine()) != null)
+            {
+                bool nadjena = false;
+
+                string[] komentarTokens = komentar.Split(';');
+                if (komentarTokens[0] == komentarRequest.IdKomentara)
+                {
+                    // nasli smo komentar kome treba povecati pozitivne glasove
+                    nadjena = true;
+                    int brojTrenutnoPozitivnih = Int32.Parse(komentarTokens[6]);
+                    int brojTrenutnoNegativnih = Int32.Parse(komentarTokens[7]);
+                    brojTrenutnoNegativnih++;
+                    if (changed)
+                    {
+                        brojTrenutnoPozitivnih--;
+                    }
+                    sviKomentari.Add(komentarTokens[0] + ";" + komentarTokens[1] + ";" + komentarTokens[2] + ";" + komentarTokens[3] + ";" + komentarTokens[4] + ";" + komentarTokens[5] + ";" + brojTrenutnoPozitivnih.ToString() + ";" + brojTrenutnoNegativnih.ToString() + ";" + komentarTokens[8] + ";" + komentarTokens[9] + ";" + komentarTokens[10]);
+
+                }
+                if (!nadjena)
+                {
+                    sviKomentari.Add(komentar);
+                }
+            }
+            sr2.Close();
+            stream3.Close();
+
+            var dataFile4 = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream4 = new FileStream(dataFile4, FileMode.Create, FileAccess.Write);
+            StreamWriter sw3 = new StreamWriter(stream4);
+
+
+            
+            foreach (string linijaKomentara in sviKomentari)
+            {
+                sw3.WriteLine(linijaKomentara);
+            }
+            sw3.Close();
+            stream4.Close();
+
+            // Sada sve ovo isto za podkomentare
+            // Nakon sto sam dodao u .txt fajl ko je dislajkovao , sada nadji taj PODKOMENTAR i povecaj mu brojlajkovanih
+           
+            var dataFile5 = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+            FileStream stream5 = new FileStream(dataFile5, FileMode.Open);
+            StreamReader sr3 = new StreamReader(stream5);
+
+            List<string> sviPodkomentari = new List<string>();
+
+            string podkomentar = "";
+            while ((podkomentar = sr3.ReadLine()) != null)
+            {
+                bool nadjena = false;
+
+                string[] podkomentarTokens = podkomentar.Split(';');
+                if (podkomentarTokens[1] == komentarRequest.IdKomentara)
+                {
+                    // nasli smo komentar kome treba povecati pozitivne glasove
+                    nadjena = true;
+                    int brojTrenutnoPozitivnih = Int32.Parse(podkomentarTokens[5]);
+                    int brojTrenutnoNegativnih = Int32.Parse(podkomentarTokens[6]);
+                    brojTrenutnoNegativnih++;
+                    if (changed)
+                    {
+                        brojTrenutnoPozitivnih--;
+                    }
+                    sviPodkomentari.Add(podkomentarTokens[0] + ";" + podkomentarTokens[1] + ";" + podkomentarTokens[2] + ";" + podkomentarTokens[3] + ";" + podkomentarTokens[4] + ";" + brojTrenutnoPozitivnih.ToString() + ";" + brojTrenutnoNegativnih.ToString() + ";" + podkomentarTokens[7] + ";" + podkomentarTokens[8] + ";" + podkomentarTokens[9]);
+
+                }
+                if (!nadjena)
+                {
+                    sviPodkomentari.Add(podkomentar);
+                }
+            }
+            sr3.Close();
+            stream5.Close();
+
+            var dataFile6 = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+            FileStream stream6 = new FileStream(dataFile6, FileMode.Create, FileAccess.Write);
+            StreamWriter sw4 = new StreamWriter(stream6);
+
+            
+
+            foreach (string linijaKomentara in sviPodkomentari)
+            {
+                sw4.WriteLine(linijaKomentara);
+            }
+            sw4.Close();
+            stream6.Close();
+
+            return true;
+        }
     }
 }

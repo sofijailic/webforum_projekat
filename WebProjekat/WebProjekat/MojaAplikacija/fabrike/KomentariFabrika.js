@@ -25,6 +25,26 @@
         return $http.get('/api/Komentari/UzmiKomentare/?idTeme=' + podforum + '-' + tema);
     }
 
+
+
+    factory.lajkujKomentar = function (komentar, username) {
+
+        return $http.post('/api/Komentari/LajkujKomentar', {
+            IdKomentara: komentar.Id,
+            KoVrsiAkciju: username
+        })
+
+    }
+
+    factory.dislajkujKomentar = function (komentar, username) {
+
+        return $http.post('/api/Komentari/DislajkujKomentar', {
+            IdKomentara: komentar.Id,
+            KoVrsiAkciju: username
+        })
+
+    }
+
     return factory;
 
 });
