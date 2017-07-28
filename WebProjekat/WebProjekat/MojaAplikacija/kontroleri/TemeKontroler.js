@@ -126,4 +126,13 @@
        
     }
 
+    $scope.sacuvajKomentar = function (idKomentara, username) {
+        KomentariFabrika.sacuvajKomentar(idKomentara, username).then(function (odgovor) {
+            if (odgovor.data == false) {
+                alert('Vec ste sacuvali ovaj komentar!');
+            } else alert('Komentar uspesno sacuvan!');
+            console.log(odgovor.data);
+        });
+    }
+
 })

@@ -45,6 +45,12 @@
 
     }
 
+    factory.sacuvajKomentar = function (idKomentara, username) {
+        return $http.post('/api/Komentari/SacuvajKomentar', {
+            IdKomentara: idKomentara,
+            KoCuva: username
+        });
+    }
     return factory;
 
 });

@@ -564,5 +564,76 @@ namespace WebProjekat.Controllers
 
             return true;
         }
+
+        [HttpPost]
+        [ActionName("SacuvajKomentar")]
+        public bool SacuvajKomentar([FromBody]KomentarZaCuvanje komentarZaCuvanje)
+        {
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr1 = new StreamReader(stream);
+
+            List<string> listaSvihKorisnika = new List<string>();
+            int brojac = 0;
+            int indexZaIzmenu = -1;
+            string line = "";
+            while ((line = sr1.ReadLine()) != null)
+            {
+                listaSvihKorisnika.Add(line);
+                brojac++;
+
+                string[] splitter = line.Split(';');
+                if (splitter[0] == komentarZaCuvanje.KoCuva)
+                {
+                    indexZaIzmenu = brojac;
+                }
+            }
+            sr1.Close();
+            stream.Close();
+
+            // splituj tu liniju koja treba da se menja tj na koju treba da se dodaje
+            string[] tokeniOdabranogKorisnika = listaSvihKorisnika[indexZaIzmenu - 1].Split(';');
+            // tokeniOdabranogKorisnika[10] tu se nalazi spisak pracenih komentara
+            string[] splitterProvere = tokeniOdabranogKorisnika[10].Split('|');
+            // provera ukoliko korisnik vec prati postojeci podforum
+            foreach (string idKomentara in splitterProvere)
+            {
+                if (idKomentara == komentarZaCuvanje.IdKomentara)
+                {
+                    return false;
+                }
+            }
+            // otvori bulk writer
+           
+
+            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream1 = new FileStream(dataFile1, FileMode.Create, FileAccess.Write);
+            StreamWriter sw1 = new StreamWriter(stream1);
+
+
+            // tokeniOdabranogKorisnika[10] tu se nalazi spisak pracenih komentara
+            tokeniOdabranogKorisnika[10] += "|" + komentarZaCuvanje.IdKomentara;
+
+            // linijaZaUpis se inicijalizuje na pocetku da je korisnicki username
+            string linijaZaUpis = tokeniOdabranogKorisnika[0];
+            // prodji kroz sve tokene odabranog korisnika i upisi ih u liniju, da ne pisem tokeni[0]+';'+tokeni[1] ...
+            for (int i = 1; i < 11; i++)
+            {
+                linijaZaUpis += ";" + tokeniOdabranogKorisnika[i];
+            }
+
+            // ubaci tu izmenjenu liniju na to mesto u listiSvih
+            listaSvihKorisnika[indexZaIzmenu - 1] = linijaZaUpis;
+            // prepisi ceo fajl
+            foreach (string korisnickaLinija in listaSvihKorisnika)
+            {
+                sw1.WriteLine(korisnickaLinija);
+            }
+            sw1.Close();
+            stream1.Close();
+
+            return true;
+        }
     }
 }

@@ -54,6 +54,8 @@
                  <button class="dugmadpp" ng-click="lajkujKomentar(komentar)">Lajkuj</button>
                  <button class="dugmadpp" ng-click="dislajkujKomentar(komentar)"> Dislajkuj</button>
 
+                 <button class="btn btn-success"  ng-click="sacuvajKomentar(komentar.Id,korisnik.username)">Sacuvaj</button>
+
             </div>
                 <input type="text" class="inputPodkomentar" ng-model="tekstPodkomentara" placeholder="Unesite podkomentar " />
                 <button class="btn  stilizujDugme" ng-click="DodajPodkomentar(komentar.Id,tekstPodkomentara,podforumKomePripada,tema.Naslov)">Dodaj podkomentar</button>
@@ -70,6 +72,7 @@
                         <p>Dislajkovi: {{podkomentar.NegativniGlasovi}}</p>
                         <button class="dugmadpp" ng-click="lajkujKomentar(podkomentar)">Lajkuj</button>
                         <button class="dugmadpp" ng-click="dislajkujKomentar(podkomentar)">Dislajkuj</button>
+                        <button class="btn btn-success" ng-click="sacuvajKomentar(podkomentar.Id,korisnik.username)">Sacuvaj</button>
                     </div>
                     
                 </div>
