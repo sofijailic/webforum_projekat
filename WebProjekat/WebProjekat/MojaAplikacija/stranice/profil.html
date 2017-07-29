@@ -1,0 +1,114 @@
+﻿<div class="container-fluid" ng-show="ulogovan">
+
+    <!--Izlistaj sve elemente korisnickog profila-->
+    <div>
+        <p>Korisnicko ime: {{korisnickiProfil.KorisnickoIme}}</p>
+        <p>Lozinka: {{korisnickiProfil.Lozinka}}</p>
+        <p>Uloga: {{korisnickiProfil.Uloga}}</p>
+        <p>Ime: {{korisnickiProfil.Ime}}</p>
+        <p>Prezime:{{korisnickiProfil.Prezime}}</p>
+        <p>Telefon: {{korisnickiProfil.BrTelefona}}</p>
+        <p>Email: {{korisnickiProfil.Email}}</p>
+        <p>Datum registracije: {{korisnickiProfil.DatumRegistracije}}</p>
+
+    </div>    
+    <hr>
+    <!-- izlistaj sve podforume-tj klikni na ime podforuma i on ce tiotvoriti podforum.html za taj podforum-->
+    <div>
+        <div class="repeat-podforumi" ng-repeat="podforum in sacuvaniPodforumi | orderBy:'-'">
+           Naziv podforuma:
+             <a href="#!/podforumi/{{podforum.Naziv}} ">
+            {{podforum.Naziv}}
+            </a> 
+            
+        </div>
+        <h5 ng-show="sacuvaniPodforumi.length == 0">Nema sačuvanih podforuma</h5>
+   </div>
+
+    <hr>
+    <!--Izlistaj sve teme-->
+    <div>
+        <div class="repeat-podforumi" ng-repeat="tema in sacuvaneTeme | orderBy:'-'">
+            Naziv podforuma-naziv teme:
+            <a href="#!/podforumi/{{tema.PodforumKomePripada}}/{{tema.Naslov}}">
+
+            <div class="item">
+            <h5>{{tema.PodforumKomePripada}} - {{tema.Naslov}}</h5>
+        </div>
+
+</a>
+           
+
+        </div>
+        <h5 ng-show="sacuvaneTeme.length == 0">Nema sačuvanih tema</h5>
+    </div>
+    <hr>
+
+    <!--Izlistaj sve komentare-->
+    <div >
+       
+        <div class="repeat-teme" ng-repeat="komentar in sacuvaniKomentari">
+            Komentar: 
+            <a href="#!/podforumi/{{komentar.TemaKojojPripada}}">
+                <div class="item">
+                    <p>{{komentar.Tekst}}</p>
+                </div>
+            </a>
+        </div>
+        <h5 ng-show="sacuvaniKomentari.length == 0">Nema sačuvanih komentara</h5>
+    </div>
+
+    <!--Prikazi lajkovane teme-->
+
+    <div >
+        <h4> Lajkovane teme</h4>
+        <div class="repeat-teme" ng-repeat="lajkovanaTema in listaLajkovanihTema ">
+            <a href="#!/podforumi/{{lajkovanaTema}}">
+                <div class="item">
+                    <p>{{lajkovanaTema}}</p>
+                </div>
+            </a>
+        </div>
+        <h5 ng-show="listaLajkovanihTema.length == 0">Nema lajkovanih tema</h5>
+    </div>
+
+    <!--Prikazi dislajkovane teme-->
+    <div >
+        <h4> Dislajkovane teme</h4>
+        <div class="repeat-teme" ng-repeat="dislajkovanaTema in listaDislajkovanihTema ">
+            <a href="#!/podforumi/{{dislajkovanaTema}}">
+                <div class="item">
+                    <p>{{dislajkovanaTema}}</p>
+                </div>
+            </a>
+        </div>
+        <h5 ng-show="listaDislajkovanihTema.length == 0">Nema dislajkovanih tema</h5>
+    </div>
+
+    <!--Prikazi lajkovane komentare-->
+    <div >
+        <h4><i class="ion ion-thumbsup"></i> Lajkovani komentari</h4>
+        <div class="repeat-teme" ng-repeat="lajkovanKomentar in listaLajkovanihKomentara ">
+            <a href="#!/podforumi/{{lajkovanKomentar.TemaKojojPripada}}">
+                <div class="item">
+                    <p>{{lajkovanKomentar.Tekst}}</p>
+                </div>
+            </a>
+        </div>
+        <h5 ng-show="listaLajkovanihKomentara.length == 0">Nema lajkovanih komentara</h5>
+    </div>
+
+    <!--Prikazi dislajkovane komentare-->
+    <div >
+        <h4><i class="ion ion-thumbsdown"></i> Dislajkovani komentari</h4>
+        <div class="repeat-teme" ng-repeat="dislajkovanKomentar in listaDislajkovanihKomentara ">
+            <a href="#!/podforumi/{{dislajkovanKomentar.TemaKojojPripada}}">
+                <div class="item">
+                    <p>{{dislajkovanKomentar.Tekst}}</p>
+                </div>
+            </a>
+        </div>
+        <h5 ng-show="listaDislajkovanihKomentara.length == 0">Nema dislajkovanih komentara</h5>
+    </div>
+
+</div>

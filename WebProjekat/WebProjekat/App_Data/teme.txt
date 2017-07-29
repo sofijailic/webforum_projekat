@@ -1,2 +1,2 @@
 Sport;Partizan;Tekst;ognjensofija;igrace sledecu utakmicu u ponedeljak;28-Jul-17;0;0;nePostoje
-Nauka;Neutroni i elektroni;Tekst;sofija;napredovanje u sferi atoma;28-Jul-17;0;0;nePostoje|5e2a153a-c4d3-4ac2-8dc1-326f31fe0932
+Nauka;Neutroni i elektroni;Tekst;sofija;napredovanje u sferi atoma;28-Jul-17;2;0;nePostoje|5e2a153a-c4d3-4ac2-8dc1-326f31fe0932|35f7e4c1-4b55-429d-b633-68459550fae5|c5c2f34f-9f11-40c8-b2f2-03776f2de709

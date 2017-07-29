@@ -245,6 +245,7 @@
     <Content Include="MojaAplikacija\stranice\podforumi.html" />
     <Content Include="MojaAplikacija\stranice\prikazPodforuma.html" />
     <Content Include="MojaAplikacija\stranice\prikazTeme.html" />
+    <Content Include="MojaAplikacija\stranice\profil.html" />
     <Content Include="MojaAplikacija\stranice\registracija.html" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular.min.js" />

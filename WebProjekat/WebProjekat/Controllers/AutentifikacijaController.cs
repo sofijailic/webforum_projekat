@@ -80,5 +80,39 @@ namespace WebProjekat.Controllers
             return null;
 
         }
+
+        [HttpGet]
+        [ActionName("uzmiKorisnikaNaOsnovuImena")]
+        public Korisnik uzmiKorisnikaNaOsnovuImena(string username)
+        {
+           
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] splitter = line.Split(';');
+                if (splitter[0] == username)
+                {
+                    Korisnik kor = new Korisnik();
+                    kor.KorisnickoIme = splitter[0];
+                    kor.Ime = splitter[3];
+                    kor.Prezime = splitter[4];
+                    kor.Uloga = splitter[2];
+                    kor.Email = splitter[6];
+                    kor.BrTelefona = splitter[5];
+                    kor.DatumRegistracije = DateTime.Parse(splitter[7]);
+                    kor.Lozinka = null;
+                    sr.Close();
+                    stream.Close();
+                    return kor;
+                }
+            }
+            sr.Close();
+            stream.Close();
+            return null;
+        }
     }
 }

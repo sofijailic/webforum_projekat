@@ -453,5 +453,108 @@ namespace WebProjekat.Controllers
 
             return true;
         }
+
+        [HttpGet]
+        [ActionName("UzmiSacuvaneTeme")]
+        public List<Tema> UzmiSacuvaneTeme(string username)
+        {
+           
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            List<Tema> listaSacuvanihTema = new List<Tema>();
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] splitter = line.Split(';');
+                if (splitter[0] == username)
+                {
+                    string[] temeSplitter = splitter[9].Split('|');
+                    foreach (string temaId in temeSplitter)
+                    {
+                        if (temaId != "nemaSnimljenihTema")
+                        {
+                            // Prodji kroz sve teme, nadji tu sa tim imenom, napravi novu temu, od podataka i dodaj je u listu
+
+                            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/teme.txt");
+                            FileStream stream1 = new FileStream(dataFile1, FileMode.Open);
+                            StreamReader sr1 = new StreamReader(stream1);
+
+                            string temaLine = "";
+                            while ((temaLine = sr1.ReadLine()) != null)
+                            {
+                                string[] temaLineSplitter = temaLine.Split(';');
+                                string[] podforumTema = temaId.Split('-');
+
+                                if (temaLineSplitter[0] == podforumTema[0] && temaLineSplitter[1] == podforumTema[1])
+                                {
+                                    // NOTE: kada dodajem temu u listu pracenih tema , stavim da nema ni jedan komentar, posto mi ne trebaju komentari kada budem ispisivao samo teme
+                                    // kada se klikne na tu temu on ga vodi i sve fino
+                                    listaSacuvanihTema.Add(new Tema(temaLineSplitter[0], temaLineSplitter[1], temaLineSplitter[2], temaLineSplitter[3], temaLineSplitter[4], DateTime.Parse(temaLineSplitter[5]), Int32.Parse(temaLineSplitter[6]), Int32.Parse(temaLineSplitter[7]), new List<string>()));
+                                    break; // tema nadjena pici sledeci foreach
+                                }
+                            }
+                            sr1.Close();
+                            stream1.Close();
+                        }
+                    }
+                }
+            }
+            sr.Close();
+            stream.Close();
+            return listaSacuvanihTema;
+        }
+
+        [HttpGet]
+        [ActionName("UzmiLajkovaneTeme")]
+        public List<string> UzmiLajkovaneTeme(string username)
+        {
+            List<string> listaLajkovanihTema = new List<string>();
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkTeme.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] splitter = line.Split(';');
+                if (splitter[0] == username && splitter[2] == "like")
+                {
+                    listaLajkovanihTema.Add(splitter[1]);
+                }
+            }
+            sr.Close();
+            stream.Close();
+
+            return listaLajkovanihTema;
+        }
+
+        [HttpGet]
+        [ActionName("UzmiDislajkovaneTeme")]
+        public List<string> UzmiDislajkovaneTeme(string username)
+        {
+            List<string> listaDislajkovanihTema = new List<string>();
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkTeme.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] splitter = line.Split(';');
+                if (splitter[0] == username && splitter[2] == "dislike")
+                {
+                    listaDislajkovanihTema.Add(splitter[1]);
+                }
+            }
+            sr.Close();
+            stream.Close();
+
+            return listaDislajkovanihTema;
+        }
     }
 }

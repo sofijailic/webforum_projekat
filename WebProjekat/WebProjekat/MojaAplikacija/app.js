@@ -33,6 +33,11 @@ forum.config(function ($routeProvider) { // konfiguracija potrebnih stvari koje 
 
         controller: 'TemeKontroler',
         templateUrl: 'MojaAplikacija/stranice/prikazTeme.html'
+    }).when('/profil/:username', {
+
+        controller: 'ProfilKontroler',
+        templateUrl: 'MojaAplikacija/stranice/profil.html',
+
     })
 
 });

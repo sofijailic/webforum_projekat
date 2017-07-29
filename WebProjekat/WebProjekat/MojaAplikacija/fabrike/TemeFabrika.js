@@ -45,5 +45,18 @@
         })
     }
 
+    factory.uzmiSacuvaneTeme = function (username) {
+        return $http.get('/api/Teme/UzmiSacuvaneTeme?username=' + username);
+
+    }
+
+    factory.uzmiLajkovaneTeme = function (username) {
+        return $http.get('/api/Teme/UzmiLajkovaneTeme?username=' + username);
+    }
+
+    factory.uzmiDislajkovaneTeme = function (username) {
+        return $http.get('/api/Teme/UzmiDislajkovaneTeme?username=' + username);
+    }
+
     return factory;
 })

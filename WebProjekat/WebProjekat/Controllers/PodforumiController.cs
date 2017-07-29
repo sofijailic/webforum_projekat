@@ -179,5 +179,62 @@ namespace WebProjekat.Controllers
 
             return true;
         }
+        
+        [HttpGet]
+        [ActionName("UzmiSacuvanePodforume")]
+        public List<Podforum> UzmiSacuvanePodforume(string username)
+        {
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            List<Podforum> listaSacuvanihPodforuma = new List<Podforum>();
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] splitter = line.Split(';');
+                if (splitter[0] == username)
+                {
+                    string[] podforumSplitter = splitter[8].Split('|');
+                    foreach (string podforumId in podforumSplitter)
+                    {
+                        if (podforumId != "nemaSnimljenihPodforuma")
+                        {
+                            // Prodji kroz sve podforume, nadji taj sa tim imenom, napravi novi Podforum i dodaj ga u listu
+
+                           
+                            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/podforumi.txt");
+                            FileStream stream1 = new FileStream(dataFile1, FileMode.Open);
+                            StreamReader sr1 = new StreamReader(stream1);
+
+                            string podforumLine = "";
+                            while ((podforumLine = sr1.ReadLine()) != null)
+                            {
+                                string[] podforumLineSplitter = podforumLine.Split(';');
+                                if (podforumLineSplitter[0] == podforumId)
+                                {
+                                    List<string> odgovorniModeratori = new List<string>();
+                                    string[] moderatoriSplitter = podforumLineSplitter[5].Split('|');
+                                    foreach (string moderator in moderatoriSplitter)
+                                    {
+                                        odgovorniModeratori.Add(moderator);
+                                    }
+                                    listaSacuvanihPodforuma.Add(new Podforum(podforumLineSplitter[0], podforumLineSplitter[1], podforumLineSplitter[2], podforumLineSplitter[3], podforumLineSplitter[4], odgovorniModeratori));
+                                    break;
+                                }
+                            }
+                            sr1.Close();
+                            stream1.Close();
+                        }
+                    }
+                }
+            }
+            sr.Close();
+            stream.Close();
+            return listaSacuvanihPodforuma;
+        }
+
     }
 }

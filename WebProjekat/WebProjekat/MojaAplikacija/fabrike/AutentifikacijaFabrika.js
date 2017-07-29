@@ -20,6 +20,12 @@
         });
 
     }
+
+    factory.uzmiKorisnikaNaOsnovuImena = function (username) {
+        return $http.get('/api/Autentifikacija/uzmiKorisnikaNaOsnovuImena?username=' + username);
+
+        
+    }
     return factory;
 
 });

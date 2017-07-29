@@ -1,1 +1,2 @@
-5e2a153a-c4d3-4ac2-8dc1-326f31fe0932;Nauka-Neutroni i elektroni;sofija;28-Jul-17;nemaRoditelja;veoma zanimljiv clanak;1;0;False;False;nemaPodkomentara|547e97e1-0fa9-45ba-99e9-7c23703f071a
+35f7e4c1-4b55-429d-b633-68459550fae5;Nauka-Neutroni i elektroni;sofija;29-Jul-17;nemaRoditelja;desi brt;1;0;False;False;nemaPodkomentara|67d5f24e-15b6-407d-b14e-bae2d9683981
+c5c2f34f-9f11-40c8-b2f2-03776f2de709;Nauka-Neutroni i elektroni;sofija;29-Jul-17;nemaRoditelja;odlican komentar;0;1;False;False;nemaPodkomentara|55ed769f-349d-43a0-ad9f-fdb8e0a54337

@@ -51,6 +51,25 @@
             KoCuva: username
         });
     }
+
+    factory.uzmiSacuvaneKomentare = function (username) {
+        return $http.get('/api/Komentari/UzmiSacuvaneKomentare?username=' + username);
+    }
+
+    factory.uzmiSacuvanePodkomentare = function (username) {
+        return $http.get('/api/Komentari/UzmiSacuvanePodkomentare?username=' + username);
+    }
+
+    factory.uzmiLajkovaniKomentari = function (username) {
+        return $http.get('/api/Komentari/UzmiLajkovaniKomentari?username=' + username);
+    }
+
+    factory.uzmiDislajkovaniKomentari = function (username) {
+        return $http.get('/api/Komentari/UzmiDislajkovaniKomentari?username=' + username);
+    }
+
     return factory;
+
+
 
 });

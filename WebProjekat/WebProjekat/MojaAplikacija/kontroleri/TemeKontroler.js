@@ -116,7 +116,7 @@
 
     $scope.sacuvajTemu = function (username) {
 
-            var naslovTeme = $scope.nazivPodforuma + '-' + $scope.nazivTeme;
+            var naslovTeme = $scope.podforumKomeTemaPripada + '-' + $scope.nazivTeme;
             TemeFabrika.sacuvajTemu(naslovTeme, username).then(function (odgovor) {
                 if (odgovor.data == false) {
                     alert('Vec pratite ovu temu!');

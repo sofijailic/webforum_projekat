@@ -635,5 +635,241 @@ namespace WebProjekat.Controllers
 
             return true;
         }
+
+        [HttpGet]
+        [ActionName("UzmiSacuvaneKomentare")]
+        public List<Komentar> UzmiSacuvaneKomentare(string username)
+        {
+            
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            List<Komentar> listaSacuvanihKomentara = new List<Komentar>();
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] splitter = line.Split(';');
+                if (splitter[0] == username)
+                {
+                    string[] komentariSplitter = splitter[10].Split('|');
+                    foreach (string komentarId in komentariSplitter)
+                    {
+                        if (komentarId != "nemaSnimljenihKomentara")
+                        {
+                            // Prodji kroz sve komentare, nadji taj sa tim id-em, napravi novi komentar, od podataka i dodaj ga u listu
+                            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+                            FileStream stream1 = new FileStream(dataFile1, FileMode.Open);
+                            StreamReader sr1 = new StreamReader(stream1);
+
+                            string komentarLine = "";
+                            while ((komentarLine = sr1.ReadLine()) != null)
+                            {
+                                string[] komentarLineSplitter = komentarLine.Split(';');
+                                if (komentarLineSplitter[0] == komentarId && komentarLineSplitter[9] == "False")
+                                {
+                                    // NOTE: kada dodajem ovde komentar, necu dodavati njegove podkomentare, posto to nije bitno za tu stranicu, korisnik treba samo da ima uvid u jedan komentar
+                                    listaSacuvanihKomentara.Add(new Komentar(komentarLineSplitter[0], komentarLineSplitter[1], komentarLineSplitter[2], DateTime.Parse(komentarLineSplitter[3]), komentarLineSplitter[4], new List<Komentar>(), komentarLineSplitter[5], Int32.Parse(komentarLineSplitter[6]), Int32.Parse(komentarLineSplitter[7]), bool.Parse(komentarLineSplitter[8]), bool.Parse(komentarLineSplitter[9])));
+                                    break;
+                                }
+                            }
+                            sr1.Close();
+                            stream1.Close();
+                        }
+                    }
+                }
+            }
+            sr.Close();
+            stream.Close();
+            return listaSacuvanihKomentara;
+        }
+
+        [HttpGet]
+        [ActionName("UzmiSacuvanePodkomentare")]
+        public List<Komentar> UzmiSacuvanePodkomentare(string username)
+        {
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            List<Komentar> listaSacuvanihKomentara = new List<Komentar>();
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] splitter = line.Split(';');
+                if (splitter[0] == username)
+                {
+                    string[] komentariSplitter = splitter[10].Split('|');
+                    foreach (string komentarId in komentariSplitter)
+                    {
+                        if (komentarId != "nemaSnimljenihKomentara")
+                        {
+                            // Prodji kroz sve podkomentare, nadji taj sa tim id-em, napravi novi komentar, od podataka i dodaj ga u listu
+      
+                            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+                            FileStream stream1 = new FileStream(dataFile1, FileMode.Open);
+                            StreamReader sr1 = new StreamReader(stream1);
+
+                            string komentarLine = "";
+                            while ((komentarLine = sr1.ReadLine()) != null)
+                            {
+                                string[] komentarLineSplitter = komentarLine.Split(';');
+                                if (komentarLineSplitter[1] == komentarId && komentarLineSplitter[8] == "False")
+                                {
+                                    // evenutalno: prodji kroz sve teme i pogledaj da li komentarLineSplitter[9] odgovara nekoj
+                                    // ako ne odgovara nijednoj, to znaci da ta tema ne postoji tj da je obrisana i nemoj dodati ovaj
+                                    // podkomentar u listu
+
+                                    Komentar podkomentar = new Komentar();
+
+                                    podkomentar.RoditeljskiKomentar = komentarLineSplitter[0];
+                                    podkomentar.Id = komentarLineSplitter[1];
+
+                                    podkomentar.Autor = komentarLineSplitter[2];
+                                    podkomentar.DatumKomentara = DateTime.Parse(komentarLineSplitter[3]);
+                                    podkomentar.Tekst = komentarLineSplitter[4];
+                                    podkomentar.PozitivniGlasovi = Int32.Parse(komentarLineSplitter[5]);
+                                    podkomentar.NegativniGlasovi = Int32.Parse(komentarLineSplitter[6]);
+                                    podkomentar.Izmenjen = bool.Parse(komentarLineSplitter[7]);
+                                    podkomentar.Obrisan = bool.Parse(komentarLineSplitter[8]);
+                                    podkomentar.TemaKojojPripada = komentarLineSplitter[9];
+
+                                    listaSacuvanihKomentara.Add(podkomentar);
+                                    break;
+                                }
+                            }
+                            sr1.Close();
+                            stream1.Close();
+                        }
+                    }
+                }
+            }
+            sr.Close();
+            stream.Close();
+            return listaSacuvanihKomentara;
+        }
+
+        [HttpGet]
+        [ActionName("UzmiLajkovaniKomentari")]
+        public List<Komentar> UzmiLajkovaniKomentari(string username)
+        {
+            List<Komentar> listaLajkovanihKomentara = new List<Komentar>();
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkKomentari.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            List<string> ideviLajkovanih = new List<string>();
+            string komentarLine = "";
+            while ((komentarLine = sr.ReadLine()) != null)
+            {
+                string[] splitter = komentarLine.Split(';');
+                if (splitter[2] == "like" && splitter[0] == username)
+                {
+                    ideviLajkovanih.Add(splitter[1]);
+                }
+
+            }
+            sr.Close();
+            stream.Close();
+
+            if (ideviLajkovanih.Count == 0) return listaLajkovanihKomentara;
+            // prodji kroz komentari.txt i uzmi te sa tim idem
+            
+            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream1 = new FileStream(dataFile1, FileMode.Open);
+            StreamReader sr1 = new StreamReader(stream1);
+
+
+            string komLine = "";
+            while ((komLine = sr1.ReadLine()) != null)
+            {
+                string[] splitter = komLine.Split(';');
+                bool postojiULajkovanim = ideviLajkovanih.Any(idKomentara => idKomentara == splitter[0]);
+                // ako postoji u lajkovanim i nije obrisan dodaj ga u listu lajkovanih
+                if (postojiULajkovanim && splitter[9] == "False")
+                {
+                    Komentar k = new Komentar();
+                    k.Id = splitter[0];
+                    k.TemaKojojPripada = splitter[1];
+                    k.Autor = splitter[2];
+                    k.DatumKomentara = DateTime.Parse(splitter[3]);
+                    k.RoditeljskiKomentar = splitter[4];
+                    k.Tekst = splitter[5];
+                    k.PozitivniGlasovi = Int32.Parse(splitter[6]);
+                    k.NegativniGlasovi = Int32.Parse(splitter[7]);
+                    k.Izmenjen = bool.Parse(splitter[8]);
+                    k.Obrisan = bool.Parse(splitter[9]);
+
+                    listaLajkovanihKomentara.Add(k);
+                }
+            }
+            sr1.Close();
+            stream1.Close();
+
+            return listaLajkovanihKomentara;
+        }
+
+        [HttpGet]
+        [ActionName("UzmiDislajkovaniKomentari")]
+        public List<Komentar> UzmiDislajkovaniKomentari(string username)
+        {
+
+            List<Komentar> listaDislajkovanihKomentara = new List<Komentar>();
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkKomentari.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            List<string> ideviDislajkovanih = new List<string>();
+            string komentarLine = "";
+            while ((komentarLine = sr.ReadLine()) != null)
+            {
+                string[] splitter = komentarLine.Split(';');
+                if (splitter[2] == "dislike" && splitter[0] == username)
+                {
+                    ideviDislajkovanih.Add(splitter[1]);
+                }
+
+            }
+            sr.Close();
+            stream.Close();
+
+            if (ideviDislajkovanih.Count == 0) return listaDislajkovanihKomentara;
+            // prodji kroz komentari.txt i uzmi te sa tim idem
+            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream1 = new FileStream(dataFile1, FileMode.Open);
+            StreamReader sr1 = new StreamReader(stream1);
+
+            string komLine = "";
+            while ((komLine = sr1.ReadLine()) != null)
+            {
+                string[] splitter = komLine.Split(';');
+                bool postojiUDislajkovanim = ideviDislajkovanih.Any(idKomentara => idKomentara == splitter[0]);
+                // ako postoji u dislajkovanima i nije obrisan dodaj ga u listu dislajkovanih
+                if (postojiUDislajkovanim && splitter[9] == "False")
+                {
+                    Komentar k = new Komentar();
+                    k.Id = splitter[0];
+                    k.TemaKojojPripada = splitter[1];
+                    k.Autor = splitter[2];
+                    k.DatumKomentara = DateTime.Parse(splitter[3]);
+                    k.RoditeljskiKomentar = splitter[4];
+                    k.Tekst = splitter[5];
+                    k.PozitivniGlasovi = Int32.Parse(splitter[6]);
+                    k.NegativniGlasovi = Int32.Parse(splitter[7]);
+                    k.Izmenjen = bool.Parse(splitter[8]);
+                    k.Obrisan = bool.Parse(splitter[9]);
+
+                    listaDislajkovanihKomentara.Add(k);
+                }
+            }
+            sr1.Close();
+            stream1.Close();
+
+            return listaDislajkovanihKomentara;
+        }
     }
 }

@@ -26,5 +26,10 @@
             KorisnikKojiCuva: username
         });
     }
+
+    factory.uzmiSacuvanePodforume=function(username){
+        return $http.get('/api/Podforumi/UzmiSacuvanePodforume?username=' + username);
+    
+    }
     return factory;
 });
