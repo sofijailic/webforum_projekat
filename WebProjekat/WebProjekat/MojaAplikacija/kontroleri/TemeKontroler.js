@@ -134,5 +134,26 @@
             console.log(odgovor.data);
         });
     }
+    $scope.obrisiTemu = function (tema) {
 
+        TemeFabrika.obrisiTemu(tema).then(function (odgovor) {
+            console.log(odgovor.data);
+            alert('Uspesno obrisana tema');
+            $window.location.href = "#!/podforumi"
+        });
+    }
+
+    $scope.obrisiPodkomentar = function (podkomentar) {
+        KomentariFabrika.obrisiPodkomentar(podkomentar).then(function (odgovor) {
+            console.log(odgovor.data);
+            inicijalizacija();
+        });
+    }
+
+    $scope.obrisiKomentar = function (komentar) {
+        KomentariFabrika.obrisiKomentar(komentar).then(function (odgovor) {
+            console.log(odgovor.data);
+            inicijalizacija();
+        });
+    }
 })

@@ -556,5 +556,243 @@ namespace WebProjekat.Controllers
 
             return listaDislajkovanihTema;
         }
+
+        [HttpPost]
+        [ActionName("ObrisiTemu")]
+        public bool ObrisiTemu([FromBody]Tema temaZaBrisanje)
+        {
+            // 1. Prodji kroz sve teme.txt i kada nadjes da je splitter[0] == temaZaBrisanje.PodforumKomePripada i splitter[1] == temaZaBrisanje.Naslov tu nemoj dodati
+            // 2. Prodji kroz sve komentare, i svaki koji u sebi sadrzi tu temu obrisi ga, tj prepisi komentare.txt a nemoj dodati te koji sadrze tu temu
+            // 3. Za svaki komentar koji ne sadrzi tu temu dodaj njegov id u neku listu stringova, zatim prodji kroz sve podkomentari.txt i obrisi sve podkomentare ciji je splitter[0] == id-em iz liste obrisanih komentara, i takodje te obrisane ideve dodaj u jos neku listuObrisanihPodkomentara
+            // 4. Prodji kroz lajkDislajkKomentari i obrisi svaki koji sadrzi neki id ili iz listeObrisanihKomentara ili iz listeObrisanihPodkomentara
+            // 5. Prodji kroz lajkDislajkTeme i obrisi svaku temu ciji je splitter[1] == temaZaBrisanje.PodforumKomePripada-tema.Naslov
+
+
+            // -------------------------------- 1 ---------------------------------
+            
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/teme.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+
+            List<string> listaTemaZaPonovniUpis = new List<string>();
+
+            string linijaTema = "";
+            while ((linijaTema = sr.ReadLine()) != null)
+            {
+                bool nadjena = false;
+                string[] temaSplitter = linijaTema.Split(';');
+                if (temaSplitter[0] == temaZaBrisanje.PodforumKomePripada && temaSplitter[1] == temaZaBrisanje.Naslov)
+                {
+                    nadjena = true;
+                }
+                if (!nadjena)
+                {
+                    listaTemaZaPonovniUpis.Add(linijaTema);
+                }
+            }
+
+            sr.Close();
+            stream.Close();
+
+            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/teme.txt");
+            FileStream stream1 = new FileStream(dataFile1, FileMode.Create, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(stream1);
+
+            foreach (string temaLn in listaTemaZaPonovniUpis)
+            {
+                sw.WriteLine(temaLn);
+            }
+            sw.Close();
+            stream1.Close();
+
+            // ------------------------------------------ 1 close ---------------------------------------------
+
+            // ------------------------------------------ 2 ---------------------------------------------------
+
+            var dataFile2 = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream2 = new FileStream(dataFile2, FileMode.Open);
+            StreamReader sr1 = new StreamReader(stream2);
+
+            List<string> listaKomentaraZaBrisanje = new List<string>();
+
+            List<string> listaKomentaraZaPonovniUpis = new List<string>();
+
+            string komentarLinija = "";
+
+            while ((komentarLinija = sr1.ReadLine()) != null)
+            {
+                bool nadjen = false;
+
+                string[] komentarSplitter = komentarLinija.Split(';');
+                string[] podforumNaslovTemeSplitter = komentarSplitter[1].Split('-');
+                string podforum = podforumNaslovTemeSplitter[0];
+                string naslov = podforumNaslovTemeSplitter[1];
+
+                if (podforum == temaZaBrisanje.PodforumKomePripada && naslov == temaZaBrisanje.Naslov)
+                {
+                    listaKomentaraZaBrisanje.Add(komentarSplitter[0]);
+                    nadjen = true;
+                }
+                if (!nadjen)
+                {
+                    listaKomentaraZaPonovniUpis.Add(komentarLinija);
+                }
+            }
+            sr1.Close();
+            stream2.Close();
+
+
+            var dataFile3 = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream3 = new FileStream(dataFile3, FileMode.Create, FileAccess.Write);
+            StreamWriter sw1 = new StreamWriter(stream3);
+
+            foreach (string komentarLn in listaKomentaraZaPonovniUpis)
+            {
+                sw1.WriteLine(komentarLn);
+            }
+            sw1.Close();
+            stream3.Close();
+
+            // ------------------------------------------ 2 close ---------------------------------------------
+
+            // ------------------------------------------ 3 ---------------------------------------------------
+
+            var dataFile4 = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+            FileStream stream4 = new FileStream(dataFile4, FileMode.Open);
+            StreamReader sr2 = new StreamReader(stream4);
+
+            List<string> listaPodkomentaraZaBrisanje = new List<string>();
+
+            List<string> listaPodkomentaraZaPonovniUpis = new List<string>();
+
+            string podkomentarLinija = "";
+            while ((podkomentarLinija = sr2.ReadLine()) != null)
+            {
+                bool nadjen = false;
+                string[] podkomentarSplitter = podkomentarLinija.Split(';');
+                foreach (string idRoditelja in listaKomentaraZaBrisanje)
+                {
+                    if (podkomentarSplitter[0] == idRoditelja)
+                    {
+                        nadjen = true;
+                        listaPodkomentaraZaBrisanje.Add(podkomentarSplitter[1]);
+                    }
+                }
+                if (!nadjen)
+                {
+                    listaPodkomentaraZaPonovniUpis.Add(podkomentarLinija);
+                }
+            }
+
+            sr2.Close();
+            stream4.Close();
+
+            var dataFile5 = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+            FileStream stream5 = new FileStream(dataFile5, FileMode.Create, FileAccess.Write);
+            StreamWriter sw2 = new StreamWriter(stream5);
+
+            foreach (string podkomentarLn in listaPodkomentaraZaPonovniUpis)
+            {
+                sw2.WriteLine(podkomentarLn);
+            }
+            sw2.Close();
+            stream5.Close();
+
+            // ------------------------------------------ 3 close ---------------------------------------------
+
+            // ------------------------------------------ 4 ---------------------------------------------------
+
+            var dataFile6 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkKomentari.txt");
+            FileStream stream6 = new FileStream(dataFile6, FileMode.Open);
+            StreamReader sr3 = new StreamReader(stream6);
+
+            List<string> listaLajkovanihDislajkovanihKomentaraZaPonovniUpis = new List<string>();
+
+            string likeDislikeComLine = "";
+            while ((likeDislikeComLine = sr3.ReadLine()) != null)
+            {
+                bool nadjen = false;
+                string[] likeDislikeSplitter = likeDislikeComLine.Split(';');
+                foreach (string idKomentara in listaKomentaraZaBrisanje)
+                {
+                    if (likeDislikeSplitter[1] == idKomentara)
+                    {
+                        nadjen = true;
+                    }
+                }
+                foreach (string idPodkomentara in listaPodkomentaraZaBrisanje)
+                {
+                    if (likeDislikeSplitter[1] == idPodkomentara)
+                    {
+                        nadjen = true;
+                    }
+                }
+                if (!nadjen)
+                {
+                    listaLajkovanihDislajkovanihKomentaraZaPonovniUpis.Add(likeDislikeComLine);
+                }
+            }
+            sr3.Close();
+            stream6.Close();
+
+            var dataFile7 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkKomentari.txt");
+            FileStream stream7 = new FileStream(dataFile7, FileMode.Create, FileAccess.Write);
+            StreamWriter sw3 = new StreamWriter(stream7);
+
+            foreach (string likeDislikeLn in listaLajkovanihDislajkovanihKomentaraZaPonovniUpis)
+            {
+                sw3.WriteLine(likeDislikeLn);
+            }
+            sw3.Close();
+            stream7.Close();
+
+
+            // ------------------------------------------ 4 close ---------------------------------------------
+
+            // ------------------------------------------ 5 ---------------------------------------------------
+            var dataFile8 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkTeme.txt");
+            FileStream stream8 = new FileStream(dataFile8, FileMode.Open);
+            StreamReader sr4 = new StreamReader(stream8);
+
+            List<string> listaLajkovanihDislajkovanihTemaZaPonovniUpis = new List<string>();
+
+            string likeDislikeTemeLinija = "";
+            while ((likeDislikeTemeLinija = sr4.ReadLine()) != null)
+            {
+                bool nadjen = false;
+
+                string[] likeDislikeTemeLineSplitter = likeDislikeTemeLinija.Split(';');
+                string[] podforumNazivSplitter = likeDislikeTemeLineSplitter[1].Split('-');
+                string podforum = podforumNazivSplitter[0];
+                string nazivTeme = podforumNazivSplitter[1];
+
+                if (podforum == temaZaBrisanje.PodforumKomePripada && nazivTeme == temaZaBrisanje.Naslov)
+                {
+                    nadjen = true;
+                }
+                if (!nadjen)
+                {
+                    listaLajkovanihDislajkovanihTemaZaPonovniUpis.Add(likeDislikeTemeLinija);
+                }
+            }
+            sr4.Close();
+            stream8.Close();
+
+            var dataFile9 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkTeme.txt");
+            FileStream stream9 = new FileStream(dataFile9, FileMode.Create, FileAccess.Write);
+            StreamWriter sw4 = new StreamWriter(stream9);
+
+            foreach (string temaLn in listaLajkovanihDislajkovanihTemaZaPonovniUpis)
+            {
+                sw4.WriteLine(temaLn);
+            }
+            sw4.Close();
+            stream9.Close();
+
+            // ------------------------------------------ 5 close ---------------------------------------------
+
+            return true;
+        }
     }
 }

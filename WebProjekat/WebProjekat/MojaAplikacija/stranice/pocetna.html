@@ -1,0 +1,23 @@
+﻿<div class="container-fluid">
+    <div >
+        <h1>Dobrodošao <span ng-show="ulogovan">{{korisnik.username}}</span> <span ng-show="korisnik.uloga.includes('Administrator')">(Admin)</span></h1>
+        <h4 ng-show="ulogovan">Ovo su teme koje pratiš</h4>
+        <h4 ng-show="!ulogovan">Morate da se ulogujete da bi vam se prikazale dodatne funkcije</h4>
+    </div>
+</div>
+
+<div class="container">
+   
+        <div class="praceneTeme">
+            <div class="teme-repeat" ng-show="sacuvaneTeme" ng-repeat="tema in sacuvaneTeme ">
+                <a href="#!/podforumi/{{tema.PodforumKomePripada}}/{{tema.Naslov}}">
+                    <div class="tema">
+                        {{tema.PodforumKomePripada}} - {{tema.Naslov}}
+                    </div>
+                </a>
+            </div>
+            <div class="nemaTema" ng-show="sacuvaneTeme.length == 0">
+                <h4>Trenutno nemate ni jednu snimljenu temu.</h4>
+            </div>
+        </div>
+</div>

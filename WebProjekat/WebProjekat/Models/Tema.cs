@@ -29,5 +29,7 @@ namespace WebProjekat.Models
             this.PozitivniGlasovi = pozitivniG;
             this.NegativniGlasovi = negativniG;
         }
+
+        public Tema() { }
     }
 }

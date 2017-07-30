@@ -22,7 +22,7 @@
     <div class="dugmad">
     <button class="btn btn-default dugme1"  ng-show="ulogovan" ng-click="sacuvajTemu(korisnik.username)">Sacuvaj</button>
     <button class="btn btn-default dugme2">Izmeni</button>
-    <button class="btn btn-default dugme3">Obrisi</button>
+    <button class="btn btn-default dugme3" ng-show="korisnik.uloga.includes('Administrator') || korisnik.username == tema.Autor || (korisnik.uloga == 'Moderator')" ng-click="obrisiTemu(tema)">Obrisi</button>
     <button class="btn btn-default dugme4" ng-click="lajkujTemu(tema)">Lajkuj</button>
     <button class="btn btn-default dugme5" ng-click="dislajkujTemu(tema)">Dislajkuj</button>
 
@@ -55,6 +55,8 @@
                  <button class="dugmadpp" ng-click="dislajkujKomentar(komentar)"> Dislajkuj</button>
 
                  <button class="btn btn-success"  ng-click="sacuvajKomentar(komentar.Id,korisnik.username)">Sacuvaj</button>
+                 <div class="btn btn-danger" ng-show="korisnik.uloga == 'Administrator' || ( korisnik.uloga == 'Moderator') || korisnik.username == komentar.Autor" ng-click="obrisiKomentar(komentar)">Obriši</div>
+
 
             </div>
                 <input type="text" class="inputPodkomentar" ng-model="tekstPodkomentara" placeholder="Unesite podkomentar " />
@@ -73,6 +75,8 @@
                         <button class="dugmadpp" ng-click="lajkujKomentar(podkomentar)">Lajkuj</button>
                         <button class="dugmadpp" ng-click="dislajkujKomentar(podkomentar)">Dislajkuj</button>
                         <button class="btn btn-success" ng-click="sacuvajKomentar(podkomentar.Id,korisnik.username)">Sacuvaj</button>
+                        <div class="btn btn-danger" ng-show="korisnik.uloga == 'Administrator' || (korisnik.uloga == 'Moderator') || korisnik.username == podkomentar.Autor" ng-click="obrisiPodkomentar(podkomentar)">Obriši</div>
+
                     </div>
                     
                 </div>

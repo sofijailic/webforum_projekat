@@ -871,5 +871,134 @@ namespace WebProjekat.Controllers
 
             return listaDislajkovanihKomentara;
         }
+
+        [HttpPost]
+        [ActionName("ObrisiPodkomentar")]
+        public bool ObrisiPodkomentar([FromBody]Komentar podkomentar)
+        {
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            List<string> listaSvihPodkomentara = new List<string>();
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                bool nadjen = false;
+
+                string[] splitter = line.Split(';');
+                if (splitter[1] == podkomentar.Id)
+                {
+                    nadjen = true;
+                    listaSvihPodkomentara.Add(splitter[0] + ";" + splitter[1] + ";" + splitter[2] + ";" + splitter[3] + ";" + splitter[4] + ";" + splitter[5] + ";" + splitter[6] + ";" + splitter[7] + ";" + "True" + ";" + splitter[9]);
+                }
+                if (!nadjen)
+                {
+                    listaSvihPodkomentara.Add(line);
+                }
+            }
+
+            sr.Close();
+            stream.Close();
+
+            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+            FileStream stream1 = new FileStream(dataFile1, FileMode.Create, FileAccess.Write);
+            StreamWriter sw1 = new StreamWriter(stream1);
+
+            foreach (string linijaPodkomentara in listaSvihPodkomentara)
+            {
+                sw1.WriteLine(linijaPodkomentara);
+            }
+            sw1.Close();
+            stream1.Close();
+
+            return true;
+        }
+
+        [HttpPost]
+        [ActionName("ObrisiKomentar")]
+        public bool ObrisiKomentar([FromBody]Komentar komentar)
+        {
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+
+            List<string> listaSvihKomentara = new List<string>();
+
+            string idKomentaraZaBrisanje = "";
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                bool nadjen = false;
+
+                string[] splitter = line.Split(';');
+                if (splitter[0] == komentar.Id)
+                {
+                    nadjen = true;
+                    idKomentaraZaBrisanje = splitter[0];
+                    listaSvihKomentara.Add(splitter[0] + ";" + splitter[1] + ";" + splitter[2] + ";" + splitter[3] + ";" + splitter[4] + ";" + splitter[5] + ";" + splitter[6] + ";" + splitter[7] + ";" + splitter[8] + ";" + "True" + ";" + splitter[10]);
+                }
+                if (!nadjen)
+                {
+                    listaSvihKomentara.Add(line);
+                }
+            }
+
+            sr.Close();
+            stream.Close();
+
+            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream1 = new FileStream(dataFile1, FileMode.Create, FileAccess.Write);
+            StreamWriter sw1 = new StreamWriter(stream1);
+
+            foreach (string linijaKomentara in listaSvihKomentara)
+            {
+                sw1.WriteLine(linijaKomentara);
+            }
+            sw1.Close();
+            stream1.Close();
+
+            // Prodji kroz sve podkomentare, i onima kojima je roditelj Id od ovog sto se brise, stavi im obrisan na true
+            var dataFile2 = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+            FileStream stream2 = new FileStream(dataFile2, FileMode.Open);
+            StreamReader sr1 = new StreamReader(stream2);
+
+            List<string> listaPodkomentaraZaPonovniUpis = new List<string>();
+
+            string podkomLine = "";
+            while ((podkomLine = sr1.ReadLine()) != null)
+            {
+                bool nadjen = false;
+                string[] splitter = podkomLine.Split(';');
+                if (splitter[0] == idKomentaraZaBrisanje)
+                {
+                    nadjen = true;
+                    listaPodkomentaraZaPonovniUpis.Add(splitter[0] + ";" + splitter[1] + ";" + splitter[2] + ";" + splitter[3] + ";" + splitter[4] + ";" + splitter[5] + ";" + splitter[6] + ";" + splitter[7] + ";" + "True" + ";" + splitter[9]);
+                }
+                if (!nadjen)
+                {
+                    listaPodkomentaraZaPonovniUpis.Add(podkomLine);
+                }
+            }
+            sr1.Close();
+            stream2.Close();
+
+            var dataFile3 = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+            FileStream stream3 = new FileStream(dataFile3, FileMode.Create, FileAccess.Write);
+            StreamWriter sw2 = new StreamWriter(stream3);
+
+            foreach (string podkomentar in listaPodkomentaraZaPonovniUpis)
+            {
+                sw2.WriteLine(podkomentar);
+            }
+            sw2.Close();
+            stream3.Close();
+
+            return true;
+        }
     }
 }

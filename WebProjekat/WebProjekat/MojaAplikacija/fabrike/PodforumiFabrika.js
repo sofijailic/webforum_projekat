@@ -31,5 +31,11 @@
         return $http.get('/api/Podforumi/UzmiSacuvanePodforume?username=' + username);
     
     }
+
+    factory.obrisiPodforum = function (podforum) {
+        return $http.post('/api/Podforumi/ObrisiPodforum', {
+            Naziv: podforum.Naziv
+        });
+    }
     return factory;
 });

@@ -49,13 +49,20 @@
         return $http.get('/api/Teme/UzmiSacuvaneTeme?username=' + username);
 
     }
-
+    
     factory.uzmiLajkovaneTeme = function (username) {
         return $http.get('/api/Teme/UzmiLajkovaneTeme?username=' + username);
     }
 
     factory.uzmiDislajkovaneTeme = function (username) {
         return $http.get('/api/Teme/UzmiDislajkovaneTeme?username=' + username);
+    }
+
+    factory.obrisiTemu = function (tema) {
+        return $http.post('/api/Teme/ObrisiTemu', {
+            PodforumKomePripada: tema.PodforumKomePripada,
+            Naslov: tema.Naslov
+        });
     }
 
     return factory;

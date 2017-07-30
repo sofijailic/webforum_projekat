@@ -68,8 +68,19 @@
         return $http.get('/api/Komentari/UzmiDislajkovaniKomentari?username=' + username);
     }
 
+    factory.obrisiPodkomentar = function (podkomentar) {
+        return $http.post('/api/Komentari/ObrisiPodkomentar', {
+            Id: podkomentar.Id
+        });
+    }
+
+    factory.obrisiKomentar = function (komentar) {
+        return $http.post('/api/Komentari/ObrisiKomentar', {
+            Id: komentar.Id
+        });
+    }
     return factory;
 
-
+    
 
 });

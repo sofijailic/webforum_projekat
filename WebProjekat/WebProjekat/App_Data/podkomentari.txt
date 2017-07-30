@@ -1,2 +1,0 @@
-35f7e4c1-4b55-429d-b633-68459550fae5;67d5f24e-15b6-407d-b14e-bae2d9683981;sofija;29-Jul-17;desi podkomentaru;1;0;False;False;Nauka-Neutroni i elektroni
-c5c2f34f-9f11-40c8-b2f2-03776f2de709;55ed769f-349d-43a0-ad9f-fdb8e0a54337;sofija;29-Jul-17;odlican podkomentar;0;1;False;False;Nauka-Neutroni i elektroni

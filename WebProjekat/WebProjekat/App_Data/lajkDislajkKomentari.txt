@@ -1,6 +1,0 @@
-sofija;5e2a153a-c4d3-4ac2-8dc1-326f31fe0932;like
-sofija;547e97e1-0fa9-45ba-99e9-7c23703f071a;like
-sofija;55ed769f-349d-43a0-ad9f-fdb8e0a54337;dislike
-sofija;67d5f24e-15b6-407d-b14e-bae2d9683981;like
-sofija;35f7e4c1-4b55-429d-b633-68459550fae5;like
-sofija;c5c2f34f-9f11-40c8-b2f2-03776f2de709;dislike

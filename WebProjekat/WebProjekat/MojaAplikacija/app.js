@@ -38,6 +38,15 @@ forum.config(function ($routeProvider) { // konfiguracija potrebnih stvari koje 
         controller: 'ProfilKontroler',
         templateUrl: 'MojaAplikacija/stranice/profil.html',
 
+    }).when('/pocetna', {
+        controller: 'PocetnaKontroler',
+        templateUrl: 'MojaAplikacija/stranice/pocetna.html',
+
+    }).when('/pretraga', {
+
+        controller: 'PretragaKontroler',
+        templateUrl: 'MojaAplikacija/stranice/pretraga.html',
+
     })
 
 });

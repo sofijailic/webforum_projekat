@@ -10,8 +10,9 @@
     <button class="btn btn-default dugT" ng-click="OtvoriStranicuZaDodavanjeTeme()" ng-show="ulogovan">Dodaj novu temu</button>
 
     <button class="dugmiciPodforuma" ng-show="ulogovan" ng-click="sacuvajPodforum(podforum.Naziv,korisnik.username)">Sacuvaj</button>
-    <button class="dugmiciPodforuma">Obrisi</button>
+    <button class="dugmiciPodforuma" ng-show="korisnik.uloga.includes('Administrator') || ( podforum.OdgovorniModerator == korisnik.username && korisnik.uloga == 'Moderator')" ng-click="obrisiPodforum(podforum)">Obrisi</button>
     <button class="dugmiciPodforuma">Izmeni</button>
+
 
     <br><br>
         <div ng-repeat="tema in temePodforuma" class="col-md-4">

@@ -242,7 +242,9 @@
     <Content Include="MojaAplikacija\stranice\dodajNovuTemu.html" />
     <Content Include="MojaAplikacija\stranice\dodajPodforum.html" />
     <Content Include="MojaAplikacija\stranice\login.html" />
+    <Content Include="MojaAplikacija\stranice\pocetna.html" />
     <Content Include="MojaAplikacija\stranice\podforumi.html" />
+    <Content Include="MojaAplikacija\stranice\pretraga.html" />
     <Content Include="MojaAplikacija\stranice\prikazPodforuma.html" />
     <Content Include="MojaAplikacija\stranice\prikazTeme.html" />
     <Content Include="MojaAplikacija\stranice\profil.html" />

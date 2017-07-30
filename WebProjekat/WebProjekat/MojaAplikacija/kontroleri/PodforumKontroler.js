@@ -29,4 +29,16 @@
             else alert('Podforum dodat u listu pracenih');
         });
     }
+
+    $scope.obrisiPodforum = function (podforum) {
+
+        PodforumiFabrika.obrisiPodforum(podforum).then(function (odgovor) {
+
+            console.log(odgovor.data);
+            alert('Uspesno obrisan podforum');
+            $window.location.href = "#!/podforumi";
+
+        });
+
+    }
 })
