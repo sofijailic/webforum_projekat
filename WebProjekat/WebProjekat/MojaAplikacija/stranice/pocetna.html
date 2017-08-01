@@ -1,7 +1,8 @@
 ﻿<div class="container-fluid">
     <div >
-        <h1>Dobrodošao <span ng-show="ulogovan">{{korisnik.username}}</span> <span ng-show="korisnik.uloga.includes('Administrator')">(Admin)</span></h1>
-        <h4 ng-show="ulogovan">Ovo su teme koje pratiš</h4>
+        <h1>Korisnik: <span ng-show="ulogovan">{{korisnik.username}}</span> <span ng-show="korisnik.uloga.includes('Administrator')">  ** uloga :Administrator **</span> </h1>
+        <hr class="stillinije">
+        <h4 ng-show="ulogovan">Teme koje pratite:</h4>
         <h4 ng-show="!ulogovan">Morate da se ulogujete da bi vam se prikazale dodatne funkcije</h4>
     </div>
 </div>

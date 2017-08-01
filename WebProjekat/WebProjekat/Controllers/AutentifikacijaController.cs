@@ -114,5 +114,76 @@ namespace WebProjekat.Controllers
             stream.Close();
             return null;
         }
+
+
+        [HttpGet]
+        [ActionName("UzmiSveKorisnikeOsimMene")]
+        public List<Korisnik> UzmiSveKorisnikeOsimMene(string username)
+        {
+            List<Korisnik> listaKorisnika = new List<Korisnik>();
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] splitter = line.Split(';');
+                if (splitter[0] != username)
+                {
+                    Korisnik k = new Korisnik();
+                    k.KorisnickoIme = splitter[0];
+                    listaKorisnika.Add(k);
+                }
+            }
+            sr.Close();
+            stream.Close();
+            return listaKorisnika;
+        }
+
+        [HttpPost]
+        [ActionName("PromeniTipKorisniku")]
+        public bool PromeniTipKorisniku([FromBody]Korisnik korisnikZaPromenu)
+        {
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+
+            List<string> listaKorisnikaZaPonovniUpis = new List<string>();
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                bool nadjen = false;
+                string[] splitter = line.Split(';');
+                if (splitter[0] == korisnikZaPromenu.KorisnickoIme)
+                {
+                    nadjen = true;
+                    listaKorisnikaZaPonovniUpis.Add(splitter[0] + ";" + splitter[1] + ";" + korisnikZaPromenu.Uloga + ";" + splitter[3] + ";" + splitter[4] + ";" + splitter[5] + ";" + splitter[6] + ";" + splitter[7] + ";" + splitter[8] + ";" + splitter[9] + ";" + splitter[10]);
+                }
+                if (!nadjen)
+                {
+                    listaKorisnikaZaPonovniUpis.Add(line);
+                }
+
+            }
+            sr.Close();
+            stream.Close();
+
+            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream1 = new FileStream(dataFile1, FileMode.Create, FileAccess.Write);
+            StreamWriter sw1 = new StreamWriter(stream1);
+
+            foreach (string korisnik in listaKorisnikaZaPonovniUpis)
+            {
+                sw1.WriteLine(korisnik);
+            }
+            sw1.Close();
+            stream1.Close();
+            return true;
+        }
+
     }
 }

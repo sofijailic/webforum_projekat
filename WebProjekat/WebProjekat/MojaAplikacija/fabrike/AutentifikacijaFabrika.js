@@ -27,7 +27,19 @@
         
     }
 
-    return factory;
+    factory.uzmiSveKorisnikeOsimMene = function (username) {
+        return $http.get('/api/Autentifikacija/UzmiSveKorisnikeOsimMene?username=' + username);
+    }
 
-   
+    factory.promeniTipKorisniku = function (username, tip) {
+        return $http.post('/api/Autentifikacija/PromeniTipKorisniku', {
+            KorisnickoIme: username,
+            Uloga: tip
+        });
+    }
+
+
+
+
+    return factory;
 });

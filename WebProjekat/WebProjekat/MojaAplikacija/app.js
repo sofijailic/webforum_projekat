@@ -47,6 +47,11 @@ forum.config(function ($routeProvider) { // konfiguracija potrebnih stvari koje 
         controller: 'PretragaKontroler',
         templateUrl: 'MojaAplikacija/stranice/pretraga.html',
 
+    }).when('/promenaTipa', {
+
+        controller: 'PromenaTipaKontroler',
+        templateUrl: 'MojaAplikacija/stranice/promenaTipa.html',
+
     })
 
 });

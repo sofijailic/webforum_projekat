@@ -1,1 +1,3 @@
-anika;123;Korisnik;A;DJ;1242354;sdfsdf@an.com;30-Jul-17;nemaSnimljenihPodforuma;nemaSnimljenihTema;nemaSnimljenihKomentara
+anika;123;Administrator;A;DJ;1242354;sdfsdf@an.com;30-Jul-17;nemaSnimljenihPodforuma;nemaSnimljenihTema;nemaSnimljenihKomentara
+ognjen;123;Korisnik;Ognjen;Gatalo;234324;ognjen@ognj.com;01-Aug-17;nemaSnimljenihPodforuma;nemaSnimljenihTema;nemaSnimljenihKomentara
+tara;436546;Korisnik;Y;R;345345;tara@t.com;01-Aug-17;nemaSnimljenihPodforuma;nemaSnimljenihTema;nemaSnimljenihKomentara

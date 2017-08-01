@@ -312,3 +312,34 @@ width:750px;
     background:#C8F7C5;
 
 }
+
+.stillinije {
+    height: 10px;
+    border: 1;
+    box-shadow: inset 0 9px 9px -3px rgba(11, 99, 184, 0.8);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.promenaTipa {
+
+    border: 2px solid rgba(11, 99, 184, 0.8);
+    border-radius:20px;
+    padding:20px;
+    margin-top:20px;
+    box-shadow: inset 0 9px 29px 3px rgba(11, 99, 184, 0.8)
+}
+
+.selekcijaTipa {
+     background: #0ff;
+     color: black;
+    
+}
+
+.bojaTipa {
+    background: #0ff;
+    color:black;
+}
