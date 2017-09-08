@@ -233,6 +233,7 @@
     <Content Include="MojaAplikacija\kontroleri\PocetnaKontroler.js" />
     <Content Include="MojaAplikacija\kontroleri\PodforumiKontroler.js" />
     <Content Include="MojaAplikacija\kontroleri\PodforumKontroler.js" />
+    <Content Include="MojaAplikacija\kontroleri\PorukeKontroler.js" />
     <Content Include="MojaAplikacija\kontroleri\PreporukeKontroler.js" />
     <Content Include="MojaAplikacija\kontroleri\PretragaKontroler.js" />
     <Content Include="MojaAplikacija\kontroleri\ProfilKontroler.js" />
@@ -250,6 +251,7 @@
     <Content Include="MojaAplikacija\stranice\profil.html" />
     <Content Include="MojaAplikacija\stranice\promenaTipa.html" />
     <Content Include="MojaAplikacija\stranice\registracija.html" />
+    <Content Include="MojaAplikacija\stranice\slanjePoruke.html" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.min.js" />

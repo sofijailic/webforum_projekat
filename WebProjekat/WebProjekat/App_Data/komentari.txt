@@ -1,1 +1,1 @@
-fceaba7d-6b27-4cb8-9293-0086bf442f2a;Trgovina-Stanovi;ognjen;30-Jul-17;nemaRoditelja;koliko kosta stan od 50m2?;0;0;False;False;nemaPodkomentara
+fceaba7d-6b27-4cb8-9293-0086bf442f2a;Trgovina-Stanovi;ognjen;30-Jul-17;nemaRoditelja;koliko kosta stan od 50m2?;0;0;False;False;nemaPodkomentara|a61b5e39-ccda-4b51-a521-0ad462cf316e

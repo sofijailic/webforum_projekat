@@ -52,6 +52,9 @@ forum.config(function ($routeProvider) { // konfiguracija potrebnih stvari koje 
         controller: 'PromenaTipaKontroler',
         templateUrl: 'MojaAplikacija/stranice/promenaTipa.html',
 
+    }).when('/posaljiPoruku', {
+        controller:'PorukeKontroler',
+        templateUrl: 'MojaAplikacija/stranice/slanjePoruke.html',
     })
 
 });

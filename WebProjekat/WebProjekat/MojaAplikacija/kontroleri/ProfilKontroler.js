@@ -1,8 +1,8 @@
-﻿forum.controller('ProfilKontroler', function ($scope, AutentifikacijaFabrika, PodforumiFabrika, TemeFabrika, KomentariFabrika, $routeParams) {
+﻿forum.controller('ProfilKontroler', function ($scope, AutentifikacijaFabrika, PodforumiFabrika, TemeFabrika, KomentariFabrika,PorukeFabrika, $routeParams, $window, $rootScope) {
 
     function inicijalizacija() {
         console.log('Profil kontroler inicijalizovan');
-
+        $scope.profilTrenutnogKorisnika = $routeParams.username; //za poruke
 
         //uzmi korisnika-level 0
         AutentifikacijaFabrika.uzmiKorisnikaNaOsnovuImena($routeParams.username).then(function (odgovor) {
@@ -39,6 +39,7 @@
                                 $scope.sacuvaniKomentari.push(podkomentar);
                             })
                             console.log(odgovor.data);
+                          //uzmi lajkovane teme-level 5
 
                             TemeFabrika.uzmiLajkovaneTeme($routeParams.username).then(function (odgovor) {
                                 var listaLajkovanih = odgovor.data;
@@ -48,7 +49,7 @@
                                     $scope.listaLajkovanihTema.push(tema);
                                 });
                                 console.log(odgovor.data);
-                           
+                                //uzmi dislajkovane teme-level 6
                                 TemeFabrika.uzmiDislajkovaneTeme($routeParams.username).then(function (odgovor) {
                                     var listaDislajkovanih = odgovor.data;
                                     $scope.listaDislajkovanihTema = [];
@@ -58,7 +59,7 @@
                                     });
                                     console.log(odgovor.data);
 
-
+                                    //uzmi lajkovane komentare-level 7
                                     KomentariFabrika.uzmiLajkovaniKomentari($routeParams.username).then(function (odgovor) {
                                         $scope.listaLajkovanihKomentara = odgovor.data;
                                         $scope.listaLajkovanihKomentara.forEach(function (komentar) {
@@ -66,6 +67,7 @@
                                         });
                                         console.log(odgovor.data);
 
+                                   //uzmi dislajkovane komentare-level 8
                                         KomentariFabrika.uzmiDislajkovaniKomentari($routeParams.username).then(function (odgovor) {
                                             $scope.listaDislajkovanihKomentara = odgovor.data;
                                             $scope.listaDislajkovanihKomentara.forEach(function (komentar) {
@@ -73,6 +75,15 @@
                                             });
                                             console.log(odgovor.data);
 
+                                            if (sessionStorage.getItem('username') == $routeParams.username) {
+                                                //uzmi sve poruke-level 9
+                                                PorukeFabrika.uzmiPorukeZaKorisnika($routeParams.username).then(function (odgovor) {
+                                                    console.log(odgovor.data);
+                                                    $scope.primljenePoruke = odgovor.data;
+                                                });
+
+                                            }
+                                            
                                         })
                                     })
                                 })
@@ -87,5 +98,13 @@
         })
      }
    inicijalizacija();
+
+
+   $scope.OtvoriPisanjePoruke = function () {
+
+       $rootScope.primalacPoruke = $routeParams.username;
+       $window.location.href = "#!/posaljiPoruku";
+   }
+
 
 });

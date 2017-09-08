@@ -1,5 +1,6 @@
 ﻿<div class="container-fluid" ng-show="ulogovan">
 
+    <button ng-show="korisnik.username!=profilTrenutnogKorisnika" ng-click="OtvoriPisanjePoruke()">Posalji poruku</button>
     <!--Izlistaj sve elemente korisnickog profila-->
     <div>
         <p>Korisnicko ime: {{korisnickiProfil.KorisnickoIme}}</p>
@@ -111,4 +112,19 @@
         <h5 ng-show="listaDislajkovanihKomentara.length == 0">Nema dislajkovanih komentara</h5>
     </div>
 
+    <!--Prikazi primljene poruke-->
+    <div>
+        <h4><i class="ion ion-thumbsdown"></i> Primljene poruke</h4>
+        <div class="repeat-teme" ng-repeat="poruka in primljenePoruke ">
+            <a href="#!/profil/{{poruka.Posiljalac}}">
+                <h5>{{poruka.Posiljalac}}</h5>
+            </a>
+            <div class="item">
+                <p>{{poruka.Sadrzaj}}</p>
+            </div>
+            <p>Procitana: {{poruka.Procitana}}</p>
+            <button>Oznaci kao procitano</button>
+        </div>
+        <h5 ng-show="primljenePoruke.length == 0">Nema primljenih poruka</h5>
+    </div>
 </div>
