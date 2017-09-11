@@ -106,5 +106,12 @@
        $window.location.href = "#!/posaljiPoruku";
    }
 
+   $scope.OznaciKaoProcitano = function (id) {
 
+       PorukeFabrika.OznaciKaoProcitano(id).then(function (odgovor) {
+           console.log(odgovor.data);
+           inicijalizacija();
+       })
+
+   }
 });

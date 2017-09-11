@@ -1,1 +1,3 @@
-b9b61170-7c56-488f-a672-f7101744d696;anika;ognjen;ma desi bree;False
+22173778-ebaf-4996-acb7-a80469213e1f;ognjen;anika;desi bre anika;True
+067344c2-2ca2-4231-9ef7-28d980f556fd;ognjen;anika;ej evo jos jedne;True
+52baf51d-4de9-4dca-9fc6-2212bf0dc668;anika;ognjen;desi ogi;True

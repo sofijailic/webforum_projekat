@@ -123,7 +123,8 @@
                 <p>{{poruka.Sadrzaj}}</p>
             </div>
             <p>Procitana: {{poruka.Procitana}}</p>
-            <button>Oznaci kao procitano</button>
+            <p ng-show="poruka.Procitana">Procitano</p>
+            <button class="btn btn-success" ng-show="!poruka.Procitana" ng-click="OznaciKaoProcitano(poruka.Id)">Oznaci kao procitano</button>
         </div>
         <h5 ng-show="primljenePoruke.length == 0">Nema primljenih poruka</h5>
     </div>

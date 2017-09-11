@@ -18,7 +18,7 @@ namespace WebProjekat.Controllers
         {
 
             var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/poruke.txt");
-            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            FileStream stream = new FileStream(dataFile, FileMode.Append, FileAccess.Write);
             StreamWriter sw = new StreamWriter(stream);
 
             porukaZaSlanje.Id = Guid.NewGuid().ToString();
@@ -59,5 +59,49 @@ namespace WebProjekat.Controllers
             stream.Close();
             return listaPoruka;
         }
+
+
+        [HttpPost]
+        [ActionName("OznaciKaoProcitano")]
+        public bool OznaciKaoProcitano(string id)
+        {
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/poruke.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            List<string> listaPorukaZaPonovniUpis = new List<string>();
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                bool nadjena = false;
+                string[] splitter = line.Split(';');
+                if (splitter[0] == id)
+                {
+                    nadjena = true;
+                    listaPorukaZaPonovniUpis.Add(splitter[0] + ";" + splitter[1] + ";" + splitter[2] + ";" + splitter[3] + ";" + "True");
+                }
+                if (!nadjena)
+                {
+                    listaPorukaZaPonovniUpis.Add(line);
+                }
+            }
+            sr.Close();
+            stream.Close();
+
+            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/poruke.txt");
+            FileStream stream1 = new FileStream(dataFile1, FileMode.Create, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(stream1);
+
+            foreach (string poruka in listaPorukaZaPonovniUpis)
+            {
+                sw.WriteLine(poruka);
+            }
+            sw.Close();
+            stream1.Close();
+            return true;
+        }
+
     }
 }

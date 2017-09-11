@@ -18,7 +18,10 @@
     $scope.dodajPodforum = function (podforum) {
 
         podforum.moderator = sessionStorage.getItem("username");
-        PodforumiFabrika.DodajJedanPodforum(podforum).then(function (odgovor) {
+        
+        
+
+        PodforumiFabrika.DodajJedanPodforum(podforum).then(function (odgovor) { 
 
             console.log(odgovor.data);
             $window.location.href = "#!/podforumi";

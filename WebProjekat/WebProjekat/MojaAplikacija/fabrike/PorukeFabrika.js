@@ -17,5 +17,9 @@
         return $http.get('/api/Poruke/UzmiSvePoruke?username='+username);
 
     }
+
+    factory.OznaciKaoProcitano = function (id) {
+        return $http.post('/api/Poruke/OznaciKaoProcitano?id=' + id);
+    }
     return factory;
 });
