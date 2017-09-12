@@ -3,7 +3,7 @@
         
         <h2 class="nazivPodf"> Podforum:  {{nazivPodforuma}}</h2>
         <p>Opis: {{podforum.Opis}}</p>
-        <p>Moderator: {{podforum.Moderator}}</p>
+        <p>Moderator: {{podforum.OdgovorniModerator}}</p>
         <p>Pravila: {{podforum.SpisakPravila}}</p>
     </div>
 
@@ -11,7 +11,7 @@
 
     <button class="dugmiciPodforuma" ng-show="ulogovan" ng-click="sacuvajPodforum(podforum.Naziv,korisnik.username)">Sacuvaj</button>
     <button class="dugmiciPodforuma" ng-show="korisnik.uloga.includes('Administrator') || ( podforum.OdgovorniModerator == korisnik.username && korisnik.uloga == 'Moderator')" ng-click="obrisiPodforum(podforum)">Obrisi</button>
-    <button class="dugmiciPodforuma">Izmeni</button>
+    <button class="dugmiciPodforuma" ng-click="OtvoriStranicuZaSlanjeZalbeNaPodforum()" ng-show="(korisnik.uloga == 'Korisnik' && podforum.OdgovorniModerator != korisnik.username) || (korisnik.uloga == 'Moderator' && podforum.OdgovorniModerator != korisnik.username) ">Prilozi zalbu</button>
 
 
     <br><br>

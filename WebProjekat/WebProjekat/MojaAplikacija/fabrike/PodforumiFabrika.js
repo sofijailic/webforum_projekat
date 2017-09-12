@@ -1,6 +1,8 @@
 ﻿forum.factory('PodforumiFabrika', function ($http) {
     var factory = {};
 
+
+    //spoljasnjost -podforumi
     factory.DodajJedanPodforum = function (podforum) {
         return $http.post('/api/Podforumi/DodavanjePodforuma', {
             Naziv: podforum.naziv,
@@ -14,6 +16,9 @@
     factory.UzmiSvePodforume = function () {
         return $http.get('/api/Podforumi/UzmiSvePodforume');
     }
+
+
+    //unutrasnjost-podforum
 
     factory.UzmiPodforumPoImenu = function (nazivPodforuma) {
         return $http.get('/api/Podforumi/UzmiPodforumPoImenu?nazivPodforuma=' + nazivPodforuma);

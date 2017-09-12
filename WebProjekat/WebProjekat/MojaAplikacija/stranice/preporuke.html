@@ -1,0 +1,16 @@
+﻿<div class="container">
+    <h1>Preporuke</h1>
+    <p>Preporucene su teme koje ne pratite, a u proteklom vremenskom periodu su skupile velik broj lajkova</p>
+
+    <div ng-repeat="preporucenaTema in preporuceneTeme">
+        <a href="#!/podforumi/{{preporucenaTema.PodforumKomePripada}}/{{preporucenaTema.Naslov}}">
+            <div class="preporucenaTema">
+                <h3>Naslov: {{preporucenaTema.PodforumKomePripada}} - {{preporucenaTema.Naslov}}</h3>
+                <h4>Tip: {{preporucenaTema.Tip}}</h4>
+                <h4>Autor: {{preporucenaTema.Autor}}</h4>
+            </div>
+        </a>
+    </div>
+
+    <div><h4 ng-show="preporuceneTeme.length == 0">Trenutno nemamo ni jednu temu za preporuku.</h4></div>
+</div>

@@ -1,0 +1,17 @@
+﻿<div class="container-fluid">
+    <div class="loginStranica">
+        <div class="loginProzor">
+
+            <h2 id="tekst"> Prilozite zalbu na: {{zalbaNaPodkomentar.tip}} {{zalbaNaPodkomentar.entitet}}</h2>
+
+            <div class="form-group">
+                <label>Tekst poruke</label>
+                <input type="text" class="form-control" ng-model="zalbaNaPodkomentar.tekst" placeholder="Tekst zalbe">
+            </div>
+
+            <button ng-click="posaljiZalbuNaPodkomentar(zalbaNaPodkomentar)">Posalji zalbu</button>
+
+        </div>
+    </div>
+
+</div>

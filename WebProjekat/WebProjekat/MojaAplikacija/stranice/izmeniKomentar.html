@@ -1,0 +1,17 @@
+﻿<div class="container-fluid">
+    <div class="loginStranica">
+        <div class="loginProzor">
+
+            <h2 id="tekst"> Izmenite komentar {{komentarZaIzmenu.Id}}</h2>
+
+            <div class="form-group">
+                <label>Novi tekst:</label>
+                <textarea type="text" class="form-control" placeholder="Izmeni sadrzaj komentara..." ng-model="komentarZaIzmenu.Tekst"></textarea>
+            </div>
+
+            <button ng-click="izmeniKomentar(komentarZaIzmenu)">Izmeni</button>
+
+        </div>
+    </div>
+
+</div>

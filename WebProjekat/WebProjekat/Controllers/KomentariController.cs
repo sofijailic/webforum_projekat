@@ -1000,5 +1000,108 @@ namespace WebProjekat.Controllers
 
             return true;
         }
+
+
+
+        [HttpPost]
+        [ActionName("IzmeniKomentar")]
+        public bool IzmeniKomentar([FromBody]Komentar komentarZaIzmenu)
+        {
+
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            List<string> listaSvihKomentara = new List<string>();
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                bool nadjen = false;
+
+                string[] splitter = line.Split(';');
+                if (splitter[0] == komentarZaIzmenu.Id)
+                {
+                    nadjen = true;
+                    string izmenjen = "";
+                    if (splitter[8] == "True")
+                    {
+                        izmenjen = "True";
+                    }
+                    else izmenjen = komentarZaIzmenu.Izmenjen.ToString();
+                    listaSvihKomentara.Add(splitter[0] + ";" + splitter[1] + ";" + splitter[2] + ";" + splitter[3] + ";" + splitter[4] + ";" + komentarZaIzmenu.Tekst + ";" + splitter[6] + ";" + splitter[7] + ";" + izmenjen + ";" + splitter[9] + ";" + splitter[10]);
+                }
+                if (!nadjen)
+                {
+                    listaSvihKomentara.Add(line);
+                }
+            }
+
+            sr.Close();
+            stream.Close();
+
+            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
+            FileStream stream1 = new FileStream(dataFile1, FileMode.Create, FileAccess.Write);
+            StreamWriter sw1 = new StreamWriter(stream1);
+
+            foreach (string linijaKomentara in listaSvihKomentara)
+            {
+                sw1.WriteLine(linijaKomentara);
+            }
+            sw1.Close();
+            stream1.Close();
+
+            return true;
+        }
+
+        [HttpPost]
+        [ActionName("IzmeniPodkomentar")]
+        public bool IzmeniPodkomentar([FromBody]Komentar komentarZaIzmenu)
+        {
+            var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+            FileStream stream = new FileStream(dataFile, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+
+            List<string> listaSvihPodkomentara = new List<string>();
+
+            string line = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                bool nadjen = false;
+
+                string[] splitter = line.Split(';');
+                if (splitter[1] == komentarZaIzmenu.Id)
+                {
+                    nadjen = true;
+                    string izmenjen = "";
+                    if (splitter[7] == "True")
+                    {
+                        izmenjen = "True";
+                    }
+                    else izmenjen = komentarZaIzmenu.Izmenjen.ToString();
+                    listaSvihPodkomentara.Add(splitter[0] + ";" + splitter[1] + ";" + splitter[2] + ";" + splitter[3] + ";" + komentarZaIzmenu.Tekst + ";" + splitter[5] + ";" + splitter[6] + ";" + izmenjen + ";" + splitter[8] + ";" + splitter[9]);
+                }
+                if (!nadjen)
+                {
+                    listaSvihPodkomentara.Add(line);
+                }
+            }
+
+            sr.Close();
+            stream.Close();
+
+            var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/podkomentari.txt");
+            FileStream stream1 = new FileStream(dataFile1, FileMode.Create, FileAccess.Write);
+            StreamWriter sw1 = new StreamWriter(stream1);
+
+            foreach (string linijaPodkomentara in listaSvihPodkomentara)
+            {
+                sw1.WriteLine(linijaPodkomentara);
+            }
+            sw1.Close();
+            stream1.Close();
+
+            return true;
+        }
     }
 }

@@ -1,6 +1,12 @@
 ﻿forum.controller('ProfilKontroler', function ($scope, AutentifikacijaFabrika, PodforumiFabrika, TemeFabrika, KomentariFabrika,PorukeFabrika, $routeParams, $window, $rootScope) {
 
+    if (!$rootScope.ulogovan) {
+        alert('Niste ulogovan korisnik ne mozete da vidite podatke');
+        $window.location.href='#!/login';
+    }
+
     function inicijalizacija() {
+       
         console.log('Profil kontroler inicijalizovan');
         $scope.profilTrenutnogKorisnika = $routeParams.username; //za poruke
 

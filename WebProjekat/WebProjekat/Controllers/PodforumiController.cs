@@ -12,6 +12,8 @@ namespace WebProjekat.Controllers
 {
     public class PodforumiController : ApiController
     {
+
+        //spoljasnjost-podforumi
         [HttpPost]
         [ActionName("DodavanjePodforuma")]
         public Podforum DodavanjePodforuma([FromBody]Podforum p)
@@ -78,6 +80,8 @@ namespace WebProjekat.Controllers
             stream.Close();
             return listaSvihPodforuma;
         }
+
+        //unutrasnjost-podforum
         [HttpGet]
         [ActionName("UzmiPodforumPoImenu")]
         public Podforum UzmiPodforumPoImenu(string nazivPodforuma) {

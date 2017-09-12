@@ -53,8 +53,54 @@ forum.config(function ($routeProvider) { // konfiguracija potrebnih stvari koje 
         templateUrl: 'MojaAplikacija/stranice/promenaTipa.html',
 
     }).when('/posaljiPoruku', {
+
         controller:'PorukeKontroler',
         templateUrl: 'MojaAplikacija/stranice/slanjePoruke.html',
+
+    }).when('/zalbaNaPodforum', {
+
+        controller: 'ZalbeKontroler',
+        templateUrl: 'MojaAplikacija/stranice/zalbaNaPodforum.html'
+
+    }).when('/zalbaNaTemu', {
+
+        controller: 'ZalbeKontroler',
+        templateUrl: 'MojaAplikacija/stranice/zalbaNaTemu.html'
+
+    }).when('/zalbaNaKomentar', {
+
+        controller: 'ZalbeKontroler',
+        templateUrl: 'MojaAplikacija/stranice/zalbaNaKomentar.html'
+
+    }).when('/zalbaNaPodkomentar', {
+
+        controller: 'ZalbeKontroler',
+        templateUrl: 'MojaAplikacija/stranice/zalbaNaPodkomentar.html'
+
+    }).when('/zalbe', {
+
+        controller: 'PrikazZalbiKontroler',
+        templateUrl: 'MojaAplikacija/stranice/zalbe.html'
+
+    }).when('/izmenaTeme', {
+
+        controller: 'TemeKontroler',
+        templateUrl: 'MojaAplikacija/stranice/izmenaTeme.html'
+
+    }).when('/izmeniKomentar', {
+
+        controller: 'TemeKontroler',
+        templateUrl: 'MojaAplikacija/stranice/izmeniKomentar.html'
+
+    }).when('/izmeniPodkomentar', {
+
+        controller: 'TemeKontroler',
+        templateUrl: 'MojaAplikacija/stranice/izmeniPodkomentar.html'
+
+    }).when('/preporuke', {
+
+        controller: 'PreporukeKontroler',
+        templateUrl: 'MojaAplikacija/stranice/preporuke.html'
     })
 
 });

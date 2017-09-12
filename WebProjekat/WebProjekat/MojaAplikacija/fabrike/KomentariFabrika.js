@@ -79,6 +79,23 @@
             Id: komentar.Id
         });
     }
+
+    factory.izmeniKomentar = function (komentarZaIzmenu) {
+        return $http.post('/api/Komentari/IzmeniKomentar', {
+            Id: komentarZaIzmenu.Id,
+            Tekst: komentarZaIzmenu.Tekst,
+            Izmenjen: true
+        })
+    }
+
+    factory.izmeniPodkomentar = function (podkomentarZaIzmenu) {
+        return $http.post('/api/Komentari/IzmeniPodkomentar', {
+            Id: podkomentarZaIzmenu.Id,
+            Tekst: podkomentarZaIzmenu.Tekst,
+            Izmenjen: true
+        });
+    }
+
     return factory;
 
     

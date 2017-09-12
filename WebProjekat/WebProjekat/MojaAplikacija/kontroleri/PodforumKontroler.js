@@ -20,6 +20,15 @@
     $scope.OtvoriStranicuZaDodavanjeTeme = function () {
         $window.location.href = "#!/podforumi/"+$scope.nazivPodforuma+'/dodajTemu';
     }
+    
+    $scope.OtvoriStranicuZaSlanjeZalbeNaPodforum = function () {
+        $rootScope.zalbaPodforuma = {
+            entitet: $scope.nazivPodforuma,
+            tip: 'Podforum',
+            korisnikKojiSeZali: sessionStorage.getItem('username')
+        }
+        $window.location.href = "#!/zalbaNaPodforum";
+    }
 
     $scope.sacuvajPodforum = function (nazivPodforuma, username) {
         PodforumiFabrika.sacuvajPodforum(nazivPodforuma, username).then(function (odgovor) {

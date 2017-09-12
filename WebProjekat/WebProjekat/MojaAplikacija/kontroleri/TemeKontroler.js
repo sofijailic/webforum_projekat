@@ -16,6 +16,10 @@
                 console.log(odgovor.data);
                 $scope.komentari = odgovor.data;
 
+                //PodforumiFabrika.uzmiOdgovornogModeratoraZaTemu($scope.podforumKomeTemaPripada).then(function (odgovor) {
+                //    $scope.odgovorniModeratorTeme = odgovor.data;
+                //})
+
             });
         });
     }
@@ -156,4 +160,68 @@
             inicijalizacija();
         });
     }
+
+    $scope.OtvoriStranicuZaSlanjeZalbeNaTemu = function () {
+        $rootScope.zalbaNaTemu = {
+            entitet: $scope.podforumKomeTemaPripada + '-' + $scope.nazivTeme,
+            tip: 'Tema',
+            korisnikKojiSeZali: sessionStorage.getItem('username')
+        }
+        $window.location.href = "#!/zalbaNaTemu";
+    }
+
+    $scope.OtvoriSlanjeZalbeNaKomentar = function (id) {
+        $rootScope.zalbaNaKomentar = {
+            entitet: id,
+            tip: 'Komentar',
+            korisnikKojiSeZali: sessionStorage.getItem('username')
+        }
+        $window.location.href = "#!/zalbaNaKomentar";
+    }
+
+    $scope.OtvoriSlanjeZalbeNaPodkomentar = function (id) {
+        $rootScope.zalbaNaPodkomentar = {
+            entitet: id,
+            tip: 'Podkomentar',
+            korisnikKojiSeZali: sessionStorage.getItem('username')
+        }
+        $window.location.href = "#!/zalbaNaPodkomentar";
+    }
+
+    $scope.otvoriIzmenuTeme = function () {
+        $rootScope.temaZaIzmenu = $scope.tema;
+        $window.location.href = "#!/izmenaTeme";
+    }
+
+    $scope.izmeniTemu = function (izmenjenaTema) {
+        TemeFabrika.izmeniTemu(izmenjenaTema).then(function (odgovor) {
+            alert('Uspesno izmenjeno');
+            $window.location.href = '#!/podforumi/' + $rootScope.temaZaIzmenu.PodforumKomePripada + '/' + $rootScope.temaZaIzmenu.Naslov;
+        })
+    }
+
+    $scope.otvoriIzmenuKomentara = function (komentar) {
+        $rootScope.komentarZaIzmenu = komentar;
+        $window.location.href = '#!/izmeniKomentar';
+    }
+
+    $scope.izmeniKomentar = function (izmenjenKomentar) {
+        KomentariFabrika.izmeniKomentar(izmenjenKomentar).then(function (odgovor) {
+            alert('Uspesno izmenjeno');
+            $window.location.href = '#!/podforumi';
+        })
+    }
+
+    $scope.otvoriIzmenuPodkomentara = function (podkomentar) {
+        $rootScope.podkomentarZaIzmenu = podkomentar;
+        $window.location.href = '#!/izmeniPodkomentar';
+    }
+
+    $scope.izmeniPodkomentar = function (izmenjenPodkomentar) {
+        KomentariFabrika.izmeniPodkomentar(izmenjenPodkomentar).then(function (odgovor) {
+            alert('Uspesno izmenjeno');
+            $window.location.href = '#!/podforumi';
+        })
+    }
+
 })

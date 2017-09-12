@@ -1,4 +1,4 @@
-﻿forum.controller('AutentifikacijaKontroler', function ($scope,AutentifikacijaFabrika,$window,$rootScope) {
+﻿ forum.controller('AutentifikacijaKontroler', function ($scope,AutentifikacijaFabrika,$window,$rootScope) {
     
     function inicijalizacija() {
         console.log('Inicijalizovan autentifikacija kontroler');
