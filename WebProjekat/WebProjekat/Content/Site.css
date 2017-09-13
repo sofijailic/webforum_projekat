@@ -96,7 +96,7 @@ body{
      text-decoration-line:initial;
      background:#b9ef30;
 }
-#tekstic {
+.tekstic {
     text-align:center;
     padding:20px;
     color: aquamarine;
@@ -108,7 +108,7 @@ body{
 }
 
 .prikazPodforuma {
-    border: 4px solid #FDC5F5;
+    border: 2px solid #FDC5F5;
     border-radius:20px;
     margin-top:20px;
     margin-bottom:20px;
@@ -118,8 +118,8 @@ body{
    
     background:#BE90D4;
     box-shadow:
-        0 0 60px 3px #fff,  /* inner white */
-        0 0 100px 9px #f0f; /* middle magenta */
+        0 0 60px 1px #fff,  /* inner white */
+        0 0 90px 2px #f0f; /* middle magenta */
        
     
 }
@@ -210,7 +210,7 @@ width:750px;
     margin:20px;
     padding:40px;
     height:250px;
-    width:400px;
+    width:600px;
 }
 
 .inputPodkomentar {
@@ -342,4 +342,115 @@ width:750px;
 .bojaTipa {
     background: #0ff;
     color:black;
+}
+
+.profilKorisnika {
+    
+     border: 4px solid #87D37C;
+     color: #87D37C;
+     transform:translateX(-2%);
+     margin-top:20px;
+     margin-left:400px;   
+     padding:5px;
+     text-align:center;
+      width: 1200px;
+     border-radius:10px;
+     box-shadow:
+        0 0 7px 3px #C8F7C5,  /* inner white */
+        0 0 10px 2px #C8F7C5; 
+    
+}
+
+
+.profilKorisnika1 {
+    border: 4px solid #87D37C;
+     color: #87D37C;
+     transform:translateX(-2%);
+     margin-top:30px;
+     margin-left:200px;   
+     padding:5px;
+     text-align:center;
+     width: 900px;
+     border-radius:10px;
+     box-shadow:
+        0 0 1px 1px #fff,  /* inner white */
+        0 0 10px 1px green; 
+    
+    
+}
+
+.zalba {
+    border: 4px solid #fde92e;
+    padding:50px;
+    margin-top:20px;
+    box-shadow:
+        0 0 1px 1px #fff,  /* inner white */
+        0 0 10px 1px #ffd800; 
+    
+}
+
+.preporucenaTema {
+
+     border: 4px solid #9961f6;
+    padding:50px;
+    margin-top:20px;
+    box-shadow:
+        0 0 1px 1px #fff,  /* inner white */
+        0 0 10px 1px #8c7ee8; 
+}
+
+.naslov {
+    padding:2px;
+    color: #dc83fa;
+
+}
+
+.poljaPretrage1 {
+     padding: 20px;
+    margin-top:20px;
+    border: 4px solid green;
+    background: #87D37C;
+    text-align:center;
+    border-radius:20px;
+}
+
+.poljaPretrage2 {
+    padding: 20px;
+    margin-top:20px;
+    border: 4px solid #BF55EC;
+    background: #e49cef;
+    text-align:center;
+    border-radius:20px;
+    
+}
+
+.poljaPretrage3 {
+
+    padding: 20px;
+    margin-top:20px;
+    border: 4px solid #1222d3;
+    background: #0ff;
+    text-align:center;
+    border-radius:20px;
+    
+    
+}
+.bojaPolja {
+   color:black;
+   
+}
+
+.okvirPodataka {
+
+  border: 4px solid #9961f6;
+    padding:50px;
+    margin-top:20px;
+    box-shadow:
+        0 0 1px 1px #fff,  /* inner white */
+        0 0 10px 1px #8c7ee8; 
+}
+
+.tekstObojen {
+
+    color: #0ff;
 }

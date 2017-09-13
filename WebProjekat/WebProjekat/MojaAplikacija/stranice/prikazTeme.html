@@ -2,7 +2,7 @@
     <div class="ukupno">
         
         <div >
-
+            <!--teme-->
             <h2 class="txt">Tema:  {{tema.Naslov}}</h2>
             <p class="txt">Podforum kome pripada tema: {{podforumKomeTemaPripada}}</p>
             <p class="txt">Tip teme: {{tema.Tip}}</p>
@@ -13,7 +13,7 @@
                 <img class="slika-teme" src="Content/img/teme/{{tema.Sadrzaj}}" alt="" class="txt" ng-show="tema.Tip == 'Slika'">
             </div>
             <p class="txt">Autor teme: {{tema.Autor}}</p>
-            <p class="txt">Datum kreiranja teme: {{tema.DatumKreiranja}}</p>
+            <p class="txt">Datum kreiranja teme: {{tema.DatumKreiranja | date}}</p>
             <p class="txt">Lajkovi teme: {{tema.PozitivniGlasovi}}</p>
             <p class="txt">Dislajkovi teme: {{tema.NegativniGlasovi}}</p>
         </div>
@@ -30,7 +30,7 @@
     </div>
  
     <br><br>
-    
+     <!--komentari-->
 <input type="text" ng-model="tekstKomentara" ng-show="ulogovan" placeholder="Unesite komentar" class="unosKomentar"><br>
 <button class="btn btn-default dugKomentar" ng-show="ulogovan" ng-click="DodajKomentarNaTemu(tema.Naslov,podforumKomeTemaPripada,tekstKomentara)">Dodaj novi komentar</button>
     
@@ -59,7 +59,7 @@
                  <button class="btn btn-danger" ng-click="OtvoriSlanjeZalbeNaKomentar(komentar.Id)" ng-show="(korisnik.uloga == 'Korisnik' && komentar.Autor != korisnik.username) || (korisnik.uloga == 'Moderator' && komentar.Autor != korisnik.username)">Prilozi zalbu</button>
                  <div class="btn btn-danger" ng-show="korisnik.uloga == 'Administrator' || ( korisnik.uloga == 'Moderator') || korisnik.username == komentar.Autor" ng-click="obrisiKomentar(komentar)">Obriši</div>
 
-
+                 <!--podkomentari-->
             </div>
                 <input type="text" class="inputPodkomentar" ng-show="ulogovan"  ng-model="tekstPodkomentara" placeholder="Unesite podkomentar " />
                 <button class="btn  stilizujDugme" ng-show="ulogovan" ng-click="DodajPodkomentar(komentar.Id,tekstPodkomentara,podforumKomeTemaPripada,tema.Naslov)">Dodaj podkomentar</button>
@@ -76,7 +76,7 @@
                         <p>Dislajkovi: {{podkomentar.NegativniGlasovi}}</p>
                         <button class="dugmadpp" ng-show="ulogovan" ng-click="lajkujKomentar(podkomentar)">Lajkuj</button>
                         <button class="dugmadpp" ng-show="ulogovan" ng-click="dislajkujKomentar(podkomentar)">Dislajkuj</button>
-                        <button class="dugmadpp" ng-show="korisnik.uloga.includes('Administrator') || korisnik.username == tema.Autor">Izmeni</button>
+                        <button class="dugmadpp" ng-show="korisnik.uloga.includes('Administrator') || korisnik.username == tema.Autor" ng-click="otvoriIzmenuPodkomentara(podkomentar)">Izmeni</button>
                         <button class="btn btn-success" ng-show="ulogovan" ng-click="sacuvajKomentar(podkomentar.Id,korisnik.username)">Sacuvaj</button>
                         <button class="btn btn-danger" ng-show="ulogovan" ng-click="OtvoriSlanjeZalbeNaPodkomentar(podkomentar.Id)"  ng-show="(korisnik.uloga == 'Korisnik' && komentar.Autor != korisnik.username) || (korisnik.uloga == 'Moderator' && komentar.Autor != korisnik.username)">Prilozi zalbu</button>
 

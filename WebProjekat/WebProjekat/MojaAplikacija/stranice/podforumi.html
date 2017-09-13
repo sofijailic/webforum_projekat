@@ -7,7 +7,7 @@
             <button class="btn btn-default dug" ng-click="OtvoriDodavanjePodforuma()" ng-show="korisnik.uloga == 'Administrator' || korisnik.uloga == 'Moderator'">Dodaj novi podforum</button>
         </div>
 
-        <h1 id="tekstic">Spisak podforuma: </h1>
+        <h1 class="tekstic">Spisak podforuma: </h1>
         <div ng-repeat="podforum in podforumi">
             <a href="#!/podforumi/{{podforum.Naziv}}">
                 <div class="podforum" >

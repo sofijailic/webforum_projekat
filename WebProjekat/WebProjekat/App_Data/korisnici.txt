@@ -1,3 +1,4 @@
-anika;123;Administrator;A;DJ;1242354;sdfsdf@an.com;30-Jul-17;nemaSnimljenihPodforuma|Trgovina;nemaSnimljenihTema;nemaSnimljenihKomentara
-ognjen;123;Moderator;Ognjen;Gatalo;234324;ognjen@ognj.com;01-Aug-17;nemaSnimljenihPodforuma;nemaSnimljenihTema|Trgovina-Stanovi;nemaSnimljenihKomentara|fceaba7d-6b27-4cb8-9293-0086bf442f2a
-tara;123;Korisnik;Y;R;345345;tara@t.com;01-Aug-17;nemaSnimljenihPodforuma|Trgovina;nemaSnimljenihTema;nemaSnimljenihKomentara
+admin;admin;Administrator;admin;admin;219839232;admin@admin.com;09/13/2017;nemaSnimljenihPodforuma;nemaSnimljenihTema;nemaSnimljenihKomentara
+sofija;123;Korisnik;Sofija;Ilic;2313421;sof@gmail.com;09/13/2017;nemaSnimljenihPodforuma;nemaSnimljenihTema;nemaSnimljenihKomentara
+asistent;123;Korisnik;Asistent;PrAsistent;2423423;asistent@gmail.com;09/13/2017;nemaSnimljenihPodforuma;nemaSnimljenihTema;nemaSnimljenihKomentara
+random;123;Korisnik;Random;Random;234234;asistent@gmail.com;09/13/2017;nemaSnimljenihPodforuma;nemaSnimljenihTema;nemaSnimljenihKomentara

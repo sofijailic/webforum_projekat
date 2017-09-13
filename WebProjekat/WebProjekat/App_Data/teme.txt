@@ -1,4 +1,0 @@
-Trgovina;Stanovi;Tekst;ognjen;asdasdena;30-Jul-17;9;0;nePostoje|fceaba7d-6b27-4cb8-9293-0086bf442f2a|dac5770a-1b71-43d9-800a-01ddc069817a|176ab7a6-5fad-4d29-8554-c01274a7dc9d|0562302c-a9e2-4226-a7cc-8f014c30a30a|9e52d494-f0ba-4242-8949-2eeeb7c88765
-Trgovina;Rektorika;Tekst;anika;;12-Sep-17;15;0;nePostoje|c020beca-bccc-4a1d-a06c-79a8f8f3df0f
-Trgovina;Najnovija tema;Tekst;anika;sadasd;12-Sep-17;10;0;nePostoje
-Trgovina;link;Link;ognjen;http://www.google.com;12-Sep-17;12;0;nePostoje

@@ -16,6 +16,9 @@ namespace WebProjekat.Controllers
         [ActionName("Registracija")]
         public bool Registracija([FromBody]Korisnik k)
         {
+            if (k == null || ( string.IsNullOrEmpty(k.Ime) && string.IsNullOrEmpty(k.Prezime) && string.IsNullOrEmpty(k.KorisnickoIme) && string.IsNullOrEmpty(k.Lozinka) && string.IsNullOrEmpty(k.Uloga) && string.IsNullOrEmpty(k.Email) && string.IsNullOrEmpty(k.BrTelefona)) ) {
+                return false;
+            }
             var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
             FileStream stream = new FileStream(dataFile, FileMode.Open);
             StreamReader sr = new StreamReader(stream);
@@ -51,6 +54,11 @@ namespace WebProjekat.Controllers
         [ActionName("Logovanje")]
         public Korisnik Logovanje([FromBody]Korisnik k){
 
+            if (k == null)
+            {
+                return null;
+            }
+
             var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
             FileStream stream = new FileStream(dataFile, FileMode.Open);
             StreamReader sr = new StreamReader(stream);
@@ -85,7 +93,10 @@ namespace WebProjekat.Controllers
         [ActionName("uzmiKorisnikaNaOsnovuImena")]
         public Korisnik uzmiKorisnikaNaOsnovuImena(string username)
         {
-           
+            if (username == null) {
+                return null;
+            }
+
             var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
             FileStream stream = new FileStream(dataFile, FileMode.Open);
             StreamReader sr = new StreamReader(stream);
@@ -120,6 +131,10 @@ namespace WebProjekat.Controllers
         [ActionName("UzmiSveKorisnikeOsimMene")]
         public List<Korisnik> UzmiSveKorisnikeOsimMene(string username)
         {
+            if (username == null)
+            {
+                return null;
+            }
             List<Korisnik> listaKorisnika = new List<Korisnik>();
 
             var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
@@ -146,7 +161,10 @@ namespace WebProjekat.Controllers
         [ActionName("PromeniTipKorisniku")]
         public bool PromeniTipKorisniku([FromBody]Korisnik korisnikZaPromenu)
         {
-
+            if (korisnikZaPromenu == null)
+            {
+                return false;
+            }
             var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/korisnici.txt");
             FileStream stream = new FileStream(dataFile, FileMode.Open);
             StreamReader sr = new StreamReader(stream);

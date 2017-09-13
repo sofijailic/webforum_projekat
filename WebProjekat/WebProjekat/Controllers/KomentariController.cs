@@ -33,20 +33,20 @@ namespace WebProjekat.Controllers
                 brojac++;
 
                 string[] splitter = linija.Split(';');
-                if (splitter[0] == splitovanaTema[0] && splitter[1] == splitovanaTema[1])
+                if (splitter[0] == splitovanaTema[0] && splitter[1] == splitovanaTema[1]) //proveravamo podforum i naziv teme da li je ta tema
                 {
-                    indexZaIzmenu = brojac;
+                    indexZaIzmenu = brojac; //zapamtimo joj redni broj
                 }
             }
             sr.Close();
             stream.Close();
             // Upis u teme.txt tj dodavanje novog
 
-            FileStream stream2 = new FileStream(dataFile, FileMode.Create, FileAccess.Write);
+            FileStream stream2 = new FileStream(dataFile, FileMode.Create, FileAccess.Write); 
             StreamWriter sw = new StreamWriter(stream2);
 
-
-            k.Id = Guid.NewGuid().ToString();
+                                                   
+            k.Id = Guid.NewGuid().ToString(); //upisujemo novi komentar-sva njegova polja popunimo
             k.DatumKomentara = DateTime.Now;
             k.Izmenjen = false;
             k.NegativniGlasovi = 0;
@@ -57,9 +57,9 @@ namespace WebProjekat.Controllers
 
             // Prvo ako ova tema nema komentar tj ako joj je spliter listaSvihTema[indexZaIzmenu-1][8] == 'nePostoje', obrisi to nePostoje
 
-            listaSvihTema[indexZaIzmenu-1] += "|" + k.Id;
+            listaSvihTema[indexZaIzmenu-1] += "|" + k.Id; //na kraj teme dodamo novi kometar-tj njegov id
 
-            foreach (string tema in listaSvihTema)
+            foreach (string tema in listaSvihTema) //prepisemo sve teme -pa i ovu izmenjenu 
             {
                 sw.WriteLine(tema);
 
@@ -177,7 +177,7 @@ namespace WebProjekat.Controllers
                 string[] splitter = line.Split(';');
                 if (splitter[0] == pk.RoditeljskiKomentar)
                 {
-                    indexZaIzmenu = brojac;
+                    indexZaIzmenu = brojac;   //nasli smo komentar
                 }
             }
             sr.Close();
@@ -188,7 +188,7 @@ namespace WebProjekat.Controllers
             FileStream stream2 = new FileStream(dataFile2, FileMode.Create, FileAccess.Write);
             StreamWriter sw = new StreamWriter(stream2);
 
-           
+                                  //popunjavamo polja za podkomentar
 
             pk.Id = Guid.NewGuid().ToString();
             pk.DatumKomentara = DateTime.Now;
@@ -197,9 +197,9 @@ namespace WebProjekat.Controllers
             pk.PozitivniGlasovi = 0;
             pk.Obrisan = false;
 
-            listaSvihKomentara[indexZaIzmenu - 1] += "|" + pk.Id;
+            listaSvihKomentara[indexZaIzmenu - 1] += "|" + pk.Id; //na nasem komentaru dodamo id podkomentara
 
-            foreach (string komentar in listaSvihKomentara)
+            foreach (string komentar in listaSvihKomentara) //prepisemo listu svih komentara-ukljucujuci i ovog izmenjenog
             {
                 sw.WriteLine(komentar);
             }
@@ -240,12 +240,16 @@ namespace WebProjekat.Controllers
 
                 string[] splitter = line.Split(';');
                 // U slucaju da je vec lajkovao taj komentar vrati false
+
+                //nasli komentar
+                //1. vec lajkovan-false
                 if (splitter[0] == komentarRequest.KoVrsiAkciju && splitter[1] == komentarRequest.IdKomentara && splitter[2] == "like")
                 {
                     sr1.Close();
                     stream.Close();
                     return false;
                 }
+                //2. dislikekovan- izmeni ga
                 else if (splitter[0] == komentarRequest.KoVrsiAkciju && splitter[1] == komentarRequest.IdKomentara && splitter[2] == "dislike")
                 {
                     isDisliked = true;
@@ -253,6 +257,8 @@ namespace WebProjekat.Controllers
                     listaSvih.Add(komentarRequest.KoVrsiAkciju + ";" + komentarRequest.IdKomentara + ";like");
 
                 }
+
+                //svi drugi komentari
                 if (!isDisliked)
                 {
                     listaSvih.Add(line);
@@ -265,7 +271,6 @@ namespace WebProjekat.Controllers
             if (!changed)
             {
                
-
                 var dataFile1 = HttpContext.Current.Server.MapPath("~/App_Data/lajkDislajkKomentari.txt");
                 FileStream stream1 = new FileStream(dataFile1, FileMode.Append, FileAccess.Write);
                 StreamWriter sw1 = new StreamWriter(stream1);
@@ -586,7 +591,7 @@ namespace WebProjekat.Controllers
                 string[] splitter = line.Split(';');
                 if (splitter[0] == komentarZaCuvanje.KoCuva)
                 {
-                    indexZaIzmenu = brojac;
+                    indexZaIzmenu = brojac; //redni broj nadjenog korisnika
                 }
             }
             sr1.Close();
@@ -1008,6 +1013,8 @@ namespace WebProjekat.Controllers
         public bool IzmeniKomentar([FromBody]Komentar komentarZaIzmenu)
         {
 
+            //kod izmene menjamo : 5.polje- sadrzaj komentara-koji smo izmenili i 8.polje-oznaka da je izmenjen
+            
             var dataFile = HttpContext.Current.Server.MapPath("~/App_Data/komentari.txt");
             FileStream stream = new FileStream(dataFile, FileMode.Open);
             StreamReader sr = new StreamReader(stream);
@@ -1028,7 +1035,7 @@ namespace WebProjekat.Controllers
                     {
                         izmenjen = "True";
                     }
-                    else izmenjen = komentarZaIzmenu.Izmenjen.ToString();
+                    else izmenjen = komentarZaIzmenu.Izmenjen.ToString(); //false
                     listaSvihKomentara.Add(splitter[0] + ";" + splitter[1] + ";" + splitter[2] + ";" + splitter[3] + ";" + splitter[4] + ";" + komentarZaIzmenu.Tekst + ";" + splitter[6] + ";" + splitter[7] + ";" + izmenjen + ";" + splitter[9] + ";" + splitter[10]);
                 }
                 if (!nadjen)
@@ -1078,7 +1085,7 @@ namespace WebProjekat.Controllers
                     {
                         izmenjen = "True";
                     }
-                    else izmenjen = komentarZaIzmenu.Izmenjen.ToString();
+                    else izmenjen = komentarZaIzmenu.Izmenjen.ToString(); //nismo stavili false da bi nam vratio prethodni komentar ako izmena nije uspela
                     listaSvihPodkomentara.Add(splitter[0] + ";" + splitter[1] + ";" + splitter[2] + ";" + splitter[3] + ";" + komentarZaIzmenu.Tekst + ";" + splitter[5] + ";" + splitter[6] + ";" + izmenjen + ";" + splitter[8] + ";" + splitter[9]);
                 }
                 if (!nadjen)

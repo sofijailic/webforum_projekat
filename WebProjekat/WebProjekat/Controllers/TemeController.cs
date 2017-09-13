@@ -395,7 +395,7 @@ namespace WebProjekat.Controllers
 
             List<string> listaSvihKorisnika = new List<string>();
             int brojac = 0;
-            int indexZaIzmenu = -1;
+            int korisnikZaIzmenu = -1;
             string line = "";
             while ((line = sr.ReadLine()) != null)
             {
@@ -403,16 +403,16 @@ namespace WebProjekat.Controllers
                 brojac++;
 
                 string[] splitter = line.Split(';');
-                if (splitter[0] == temaZaCuvanje.KorisnikKojiPrati)
+                if (splitter[0] == temaZaCuvanje.KorisnikKojiPrati) //korisnicko ime je id , tu gledamo poklapanje
                 {
-                    indexZaIzmenu = brojac;
+                    korisnikZaIzmenu = brojac;
                 }
             }
             sr.Close();
             stream.Close();
 
             // splituj tu liniju koja treba da se menja tj na koju treba da se dodaje
-            string[] tokeniOdabranogKorisnika = listaSvihKorisnika[indexZaIzmenu - 1].Split(';');
+            string[] tokeniOdabranogKorisnika = listaSvihKorisnika[korisnikZaIzmenu - 1].Split(';');
             // tokeniOdabranogKorisnika[9] tu se nalazi spisak pracenih tema
             string[] splitterProvere = tokeniOdabranogKorisnika[9].Split('|');
             // provera ukoliko korisnik vec prati postojeci podforum
@@ -442,7 +442,7 @@ namespace WebProjekat.Controllers
             }
 
             // ubaci tu izmenjenu liniju na to mesto u listiSvih
-            listaSvihKorisnika[indexZaIzmenu - 1] = linijaZaUpis;
+            listaSvihKorisnika[korisnikZaIzmenu - 1] = linijaZaUpis;
             // prepisi ceo fajl
             foreach (string korisnickaLinija in listaSvihKorisnika)
             {

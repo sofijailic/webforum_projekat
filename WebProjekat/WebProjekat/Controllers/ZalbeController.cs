@@ -55,7 +55,7 @@ namespace WebProjekat.Controllers
                 string[] splitter = line.Split(';');
                 if (splitter[2] == "Administrator")
                 {
-                    listaAdministratoraZaProsledjivanje.Add(splitter[0]);
+                    listaAdministratoraZaProsledjivanje.Add(splitter[0]); //dodajemo smao korisnicko ime administrartora
                 }
             }
             sr1.Close();

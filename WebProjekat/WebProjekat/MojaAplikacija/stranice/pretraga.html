@@ -2,41 +2,47 @@
     <div class="col-md-4">
         <!--PRETRAZI PODFORUME-->
         <h3> Pretraži podforume</h3>
-        <div >
-            <input type="text" placeholder="Naslov" ng-model="pretragaPodforuma.naziv" />
+        <div class="poljaPretrage1">
+            <input type="text" class="bojaPolja" placeholder="Naslov" ng-model="pretragaPodforuma.naziv" />
             <br>
-            <input type="text"  placeholder="Opis" ng-model="pretragaPodforuma.opis" />
+            <input type="text"  class="bojaPolja" placeholder="Opis" ng-model="pretragaPodforuma.opis" />
             <br>
-            <input type="text" placeholder="Moderator" ng-model="pretragaPodforuma.moderator" />
+            <input type="text" class="bojaPolja" placeholder="Moderator" ng-model="pretragaPodforuma.moderator" />
             <br>
             <button class="btn button-success" ng-click="pretraziPodforume(pretragaPodforuma)">Pretraži</button>
         </div>
         <div class="container-fluid">
+            
             <h4 ng-show="rezultatiPretragePodforumi">Podforumi koji zadovoljavaju kriterijume</h4>
             <div class="rezultati" ng-repeat="podforum in rezultatiPretragePodforumi">
                 <!--ng repeat-->
                 <a href="#!/podforumi/{{podforum.Naziv}}">
                     <div class="rezultat">
-                        <h4>{{podforum.Naziv}}</h4>
-                        <p>{{podforum.Opis}}</p>
-                        <p>{{podforum.OdgovorniModerator}}</p>
+                        <div class="okvirPodataka">
+                            <h4> Podforum: {{podforum.Naziv}}</h4>
+                            <p>Opis: {{podforum.Opis}}</p>
+                            <p> Odgovorni Moderator: {{podforum.OdgovorniModerator}}</p>
+                        </div>
                     </div>
                 </a>
+                
             </div>
+            <div ng-show="rezultatiPretragePodforumi.length == 0">Nema podforuma za zadati kriterijum</div>
+               
         </div>
     </div>
 
     <div class="col-md-4">
         <!--PRETRAZI TEME-->
         <h3>  Pretraži teme</h3>
-        <div class="form-group">
-            <input type="text"  placeholder="Naslov" ng-model="pretragaTeme.naslov" />
+        <div  class="poljaPretrage2" >
+            <input type="text" class="bojaPolja" placeholder="Naslov" ng-model="pretragaTeme.naslov" />
             <br>
-            <input type="text"  placeholder="Sadrzaj" ng-model="pretragaTeme.sadrzaj" />
+            <input type="text" class="bojaPolja" placeholder="Sadrzaj" ng-model="pretragaTeme.sadrzaj" />
             <br>
-            <input type="text"  placeholder="Autor" ng-model="pretragaTeme.autor" />
+            <input type="text" class="bojaPolja" placeholder="Autor" ng-model="pretragaTeme.autor" />
             <br>
-            <input type="text"  placeholder="Podforum kome pripada" ng-model="pretragaTeme.podforum" />
+            <input type="text" class="bojaPolja" placeholder="Podforum kome pripada" ng-model="pretragaTeme.podforum" />
             <br>
             <button class="btn button-success" ng-click="pretraziTeme(pretragaTeme)">Pretraži</button>
         </div>
@@ -46,22 +52,25 @@
                 <!--ng repeat-->
                 <a href="#!/podforumi/{{tema.PodforumKomePripada}}/{{tema.Naslov}}">
                     <div class="rezultat">
-                        <h4>{{tema.PodforumKomePripada}} - {{tema.Naslov}}</h4>
-                        <p>{{tema.Tip}}</p>
-                        <p>{{tema.Autor}}</p>
-                    </div>
+                        <div class="okvirPodataka">
+                            <h4>Podforum kometema pripada i naziv teme: {{tema.PodforumKomePripada}} - {{tema.Naslov}}</h4>
+                            <p> Tip :{{tema.Tip}}</p>
+                            <p> Autor: {{tema.Autor}}</p>
+                           </div>
+                        </div>
                 </a>
             </div>
+            <div ng-show="rezultatiPretrageTeme.length == 0">Nema tema za zadati kriterijum</div>
         </div>
     </div>
 
     <div class="col-md-4">
         <!--PRETRAZI KORISNIKE-->
         <h3>  Pretraži korisnike</h3>
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="KorisnickoIme" ng-model="pretragaKorisnickogImena" />
+        <div class="poljaPretrage3">
+            <input type="text" class="bojaPolja" class="form-control" placeholder="KorisnickoIme" ng-model="pretragaKorisnickogImena" />
             <br>
-            <button class="btn button-success" ng-click="pretraziKorisnike(pretragaKorisnickogImena)">Pretraži</button>
+            <button class="btn btn" ng-click="pretraziKorisnike(pretragaKorisnickogImena)">Pretraži</button>
         </div>
 
         <div class="container-fluid">
@@ -70,12 +79,15 @@
                 <!--ng repeat-->
                 <a href="#!/profil/{{korisnik.Username}}">
                     <div class="rezultat">
-                        <h4>{{korisnik.Ime}} {{korisnik.Prezime}}</h4>
-                        <p>{{korisnik.Username}}</p>
-                        <p>{{korisnik.Uloga}}</p>
-                    </div>
+                        <div class="okvirPodataka">
+                            <h4>Ime i prezime korisnika: {{korisnik.Ime}} {{korisnik.Prezime}}</h4>
+                            <p> Korisnicko ime:{{korisnik.Username}}</p>
+                            <p> Tip:{{korisnik.Uloga}}</p>
+                            </div>
+                        </div>
                 </a>
             </div>
+            <div ng-show="rezultatiPretrageKorisnika.length == 0">Nema korisnika za zadati kriterijum</div>
         </div>
     </div>
 

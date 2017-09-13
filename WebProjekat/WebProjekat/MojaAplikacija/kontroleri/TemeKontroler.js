@@ -16,9 +16,7 @@
                 console.log(odgovor.data);
                 $scope.komentari = odgovor.data;
 
-                //PodforumiFabrika.uzmiOdgovornogModeratoraZaTemu($scope.podforumKomeTemaPripada).then(function (odgovor) {
-                //    $scope.odgovorniModeratorTeme = odgovor.data;
-                //})
+            
 
             });
         });

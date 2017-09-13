@@ -35,7 +35,7 @@ namespace WebProjekat.Controllers
                 p.Opis = splitter[1];
                 p.Ikonica = splitter[2];
                 p.SpisakPravila = splitter[3];
-              //  p.OdgovorniModerator = splitter[4];
+                p.OdgovorniModerator = splitter[4];
 
                 listaSvihPodforuma.Add(p);
             }
